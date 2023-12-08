@@ -1,0 +1,110 @@
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 60px;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+}
+
+.navbar_logo, 
+.navbar_search,
+.navbar_icons{
+    display: flex;
+    align-items: center;
+}
+
+.navbar .navbar_logo .menuIcon{
+    font-size: 24px;
+    margin: 0 20px 0 10px;
+}
+
+.navbar .navbar_logo img{
+    width: 90px;
+    cursor: pointer;
+}
+
+.navbar_search{
+    height: 35px;
+}
+
+.navbar_search input{
+    width: 570px;
+    height: 100%;
+    padding-left: 15px;
+    font-size: 16px;
+    border: 1px solid hsl(0,0%,18.82%);
+    border-radius: 40px 0 0 40px ;
+    outline: none;
+    background: hsl(0,0%,7%);
+}
+
+.navbar_search input:focus{
+    border: 1px solid #1c62b9;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.3);
+    margin-left: 0;
+    /* padding: 2px 4px 2px 48px; */
+}
+
+.navbar_search .searchbtn{
+    width: 50px;
+    height: 100%;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 2px 2px 0;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: none;
+}
+
+.navbar_search .searchbtn .searchIcon{
+    font-size: 22px;
+}
+
+.navbar_icons .appIcon, .navbar_icons .dotIcon{
+    margin-right: 25px;
+    font-size: 25px;
+}
+
+.navbar_icons .notification {
+    position: relative;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.navbar_icons .notification span[data-count]:after{
+    width: 18px;
+    height: 18px;
+    position:absolute;
+    right:15px;
+    top:-8px;
+    content: attr(data-count);
+    font-size:14px;
+    padding:2px;
+    border-radius:50%;
+    color: white;
+    background:#d11811;
+    text-align:center;
+}
+
+.navbar_icons .signin{
+    height: 35px;
+    color: #065fd4;
+    border: 1px solid #065fd4;
+}
+
+.navbar_icons img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    margin-right: 10px;
+}
