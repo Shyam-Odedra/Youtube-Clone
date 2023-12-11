@@ -9,15 +9,15 @@ import Video from './Pages/Video/Video';
 function App() {
   return (
     <div className="bg-themeBlack">
-     <BrowserRouter> 
-     <Routes>
-      <Route element={<Layout />}>
-        <Route path={ROUTES.HOME} element={<Home />} />
-        <Route path={ROUTES.SEARCH} element={<Search />} />
-        <Route path={ROUTES.VIDEO} element={<Video/>} />
-      </Route>
-     </Routes>
-     </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path={ROUTES.HOME} element={<Home />} />
+            <Route path={ROUTES.SEARCH} element={<Search />} />
+            <Route path={ROUTES.VIDEO} element={<Video />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

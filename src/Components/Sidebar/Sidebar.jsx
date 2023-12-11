@@ -33,7 +33,7 @@ export default function Sidebar() {
         </> : null
         }
       </div>
-      {isLogin ?
+      {/* {isLogin ?
         <div className="menu_2 menu_1">
           {loginMenuList ? <>
             {loginMenuList.map((menuItem, key) =>
@@ -51,7 +51,7 @@ export default function Sidebar() {
           <span className='text-sm'>Sign in to like videos, comment, and subscribe.</span>
         <span className='border signInButton rounded-3xl p-2 text-blue-700 flex items-center cursor-pointer w-28 mt-1'> <AccountCircleOutlinedIcon /><span className='ml-2'>SIGN IN</span></span>
         </div>
-      }
+      } */}
       <div className="subscription links">
         <h4>Explore</h4>
         <div className="menu_1">

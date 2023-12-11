@@ -1,4 +1,4 @@
-export const config = {
+export const ImageConfig = {
     YOUTUBE_WHITE_LOGO : require('../Assets/images/youtube-light-theme-logo.png'),
     YOUTUBE_DARK_LOGO : require('../Assets/images/youtube-dark-logo.png'),
     ACCOUNT_LOGO : require('../Assets/images/account-logo.jpg'),

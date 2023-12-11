@@ -9,5 +9,5 @@ module.exports = {
       themeBlack: "#101010"
     }
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 }

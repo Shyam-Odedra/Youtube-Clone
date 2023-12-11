@@ -11,7 +11,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import Badge from '@mui/material/Badge';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { config } from '../../Constants/config';
+import { ImageConfig } from '../../Constants/config';
 // import Context from '../../GlobalState/Context';
 
 export default function Navbar() {
@@ -71,16 +71,16 @@ export default function Navbar() {
       <div className='navbar flex items-center justify-between px-5 py-3'>
         <div className='flex items-center navbar_logo'>
           <MenuOutlinedIcon className='menuIcon cursor-pointer' />
-          <img src={config.YOUTUBE_DARK_LOGO} className='cursor-pointer' alt="" />
+          <img src={ImageConfig.YOUTUBE_DARK_LOGO} className='cursor-pointer' alt="" />
         </div>
         <div className='navbar_search'>
           <input type="text" name="searchWord" placeholder='Search' />
           <div className="searchbtn bg-slate-100 hover:bg-slate-200 cursor-pointer">
             <SearchOutlinedIcon className='searchIcon cursor-pointer' />
           </div>
-          <div className='bg-slate-100 cursor-pointer w-9 h-9 flex justify-center items-center rounded-full'>
+          {/* <div className='bg-slate-100 cursor-pointer w-9 h-9 flex justify-center items-center rounded-full'>
             <MicIcon className='micIcon' />
-          </div>
+          </div> */}
         </div>
         {/* {userData ?
           <div className='navbar_icons'>
@@ -92,10 +92,10 @@ export default function Navbar() {
             <img alt="Remy Sharp" onClick={signOutHandler} src={userData && userData.profileImage ? userData.profileImage : null} />
           </div>
           : */}
-          <div className='navbar_icons'>
+          <div className='navbar_icons h-full py-1.5'>
             {/* <AppsIcon className='appIcon cursor-pointer' /> */}
             <MoreVertIcon className='dotIcon cursor-pointer' />
-            <span className='border rounded-3xl signInButton p-2 text-gray flex items-center cursor-pointer' onClick={handleSignIn}> <AccountCircleOutlinedIcon /><span className='ml-2'>SIGN IN</span></span>
+            <button className='border font-medium rounded-3xl h-full signInButton px-2 text-gray flex items-center cursor-pointer' onClick={handleSignIn}> <AccountCircleOutlinedIcon /><span className='ml-2'>Sign In</span></button>
           </div>
         {/* } */}
       </div>

@@ -1,13 +1,15 @@
 
 /* sidebar styling */
-.sidebar{
-    position: relative;
+.sidebar {
+    position: fixed; /* Set position to fixed */
     left: 0px;
     top: 60px;
     width: 240px;
-    height: auto;
+    height: 100%;
     padding: 0px 10px;
     float: left;
+    overflow-y: auto; /* Add overflow-y to enable scrolling if the content is taller than the sidebar */
+    z-index: 100; /* Set z-index to ensure it appears above other elements */
 }
 
 .sidebar .menu_1{
@@ -23,7 +25,7 @@
 .sidebar .menu_1 .listItem{
     display: flex;
     align-items: center;
-    padding: 10px 24px;
+    padding: 10px 15px;
     height: 45px;
     cursor: pointer;
     border-radius: 10px;
@@ -36,11 +38,12 @@
 }
 
 .sidebar .menu_1 .listItem .icon{
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .sidebar .menu_1 .listItem .title{
     margin-left: 20px;
+    font-size: 16px;
 }
 
 .sidebar .subscription{

@@ -2,47 +2,28 @@ import { NavLink, Outlet } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 export default function Layout() {
-   const testMenuItems = [
-       {
-           href: '/',
-           title: 'Home',
-       },
-       {
-           href: 'search',
-           title: 'Search',
-       },
-       {
-           href: 'video',
-           title: 'Video',
-       }
-   ];
-
-   <li><NavLink to="/">Home</NavLink></li>
-   return (
-       <div className='min-h-screen flex flex-col'>
-           {/* <header className='bg-gray-200 text-black sticky top-0 h-14 flex justify-center items-center font-semibold uppercase'>
-               Cloudinary Actions
-           </header> */}
-           <Navbar />
-           <Sidebar />
-           {/* <div className='flex flex-col md:flex-row flex-1'>
-               <aside className='bg-gray-100 w-full md:w-60'>
-                   <nav>
-                       <ul>
-                           {testMenuItems.map(({ href, title }) => (
-                               <li className='m-2' key={title}>
-                                   <NavLink to={href} >
-                                       <p className={'text-black'}>{title}</p>
-                                   </NavLink>
-                               </li>
-                           ))}
-                       </ul>
-                   </nav>
-               </aside>
-               <main className={'flex-1'}>
-                   <Outlet />
-               </main>
-           </div> */}
-       </div>
-   );
+    //    const testMenuItems = [
+    //        {
+    //            href: '/',
+    //            title: 'Home',
+    //        },
+    //        {
+    //            href: 'search',
+    //            title: 'Search',
+    //        },
+    //        {
+    //            href: 'video',
+    //            title: 'Video',
+    //        }
+    //    ];
+    return (
+        <div className='min-h-screen h-full flex-col'>
+            <Navbar />
+            <div className="flex absolute top-[60px] h-[calc(100%-60px)]">
+                <main className={'flex-1'}>
+                    <Outlet />
+                </main>
+            </div>
+        </div>
+    );
 }
