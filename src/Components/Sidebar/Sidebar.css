@@ -1,0 +1,55 @@
+
+/* sidebar styling */
+.sidebar {
+    position: fixed; /* Set position to fixed */
+    left: 0px;
+    top: 60px;
+    width: 240px;
+    height: 100%;
+    padding: 0px 10px;
+    float: left;
+    overflow-y: auto; /* Add overflow-y to enable scrolling if the content is taller than the sidebar */
+    z-index: 100; /* Set z-index to ensure it appears above other elements */
+}
+
+.sidebar .menu_1{
+    padding-bottom: 15px;
+    border-bottom: 1px solid gray;
+}
+
+.sidebar .menu_2{
+    padding-top: 15px;
+    border-bottom: 1px solid gray;
+}
+
+.sidebar .menu_1 .listItem{
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 10px;
+    /* margin-bottom: 15px; */
+}
+
+.sidebar .menu_1 .listItem:hover, .sidebar .menu_1 .listItem.activeMenu{
+    /* background: theme('colors.themeBlack');; */
+    background-color: rgba(255,255,255,0.1);
+}
+
+.sidebar .menu_1 .listItem .icon{
+    font-size: 16px;
+}
+
+.sidebar .menu_1 .listItem .title{
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.sidebar .subscription{
+    border-bottom: none;
+}
+
+.sidebar .subscription h4{
+    padding: 10px 24px;
+}
