@@ -19,8 +19,8 @@ export default function Layout() {
     return (
         <div className='min-h-screen h-full flex-col'>
             <Navbar />
-            <div className="flex absolute top-[60px] h-[calc(100%-60px)]">
-                <main className={'flex-1'}>
+            <div className="absolute w-full top-[60px] h-[calc(100%-60px)]">
+                <main className="w-full">
                     <Outlet />
                 </main>
             </div>

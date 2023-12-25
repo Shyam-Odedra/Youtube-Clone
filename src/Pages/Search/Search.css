@@ -1,0 +1,47 @@
+.searchpage{
+    position: relative;
+    left: 100px;
+    display: flex;
+    justify-content: start;
+    max-width: 1096px;
+    margin: auto;
+    flex: auto;
+}
+
+.searchResultChannel{
+
+}
+
+.searchResultChannel img{
+    max-width: 360px;
+}
+
+.searchResultVideo:first-child{
+    border-top: 2px solid red ;
+}
+
+.views::after{
+    content: "•";
+    margin: 0 5px;
+}
+
+.searchResultVideo .user{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.searchResultVideo .user img{
+    width: 30px;
+    height: 30px;
+    max-width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.searchResultVideo .user .text{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}

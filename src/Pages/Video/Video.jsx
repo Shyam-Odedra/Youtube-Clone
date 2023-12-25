@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import './Video.css';
 
 export default function Video() {
   return (
-    <div>Video</div>
+    <div className='videoPage'>Video</div>
   )
 }
