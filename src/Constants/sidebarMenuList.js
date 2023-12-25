@@ -20,17 +20,20 @@ import MovieIcon from '@mui/icons-material/Movie';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { ROUTES } from './constants';
 
 export const sidebarMenuList = [
   {  
     icon: <HomeOutlinedIcon />,
     activeIcon: <HomeIcon />,
     title: 'Home',
+    route: ROUTES.HOME
   },
   {  
     icon: <WhatshotOutlinedIcon />,
     activeIcon: <WhatshotIcon />,
     title: 'Trending',
+    route: ROUTES.HOME
   },
   // {  
   //   icon: <ExploreOutlinedIcon />,

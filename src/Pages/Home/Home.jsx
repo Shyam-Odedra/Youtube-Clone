@@ -5,7 +5,7 @@ import './Home.css';
 
 export default function Home() {
   return (
-    <div className='flex flex-col md:flex-row flex-1'>
+    <div className='flex flex-col md:flex-row mt-5 flex-1'>
       <Sidebar />
       <div className="homepage">
         <HomeFeed />
