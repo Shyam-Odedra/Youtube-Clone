@@ -70,6 +70,5 @@ export default class ApiService {
             throw error;
         }
     }
-
     
 }

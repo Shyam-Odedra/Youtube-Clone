@@ -1,4 +1,26 @@
-.videoPage{
+.videoPage {
     margin: 10px auto;
     width: 85vw;
+}
+
+.videoPartSection {
+    width: 75%;
+    max-width: 1200px;
+}
+
+.relatedVideosSection {
+    width: 25%;
+}
+
+.videoPlayerIframe {
+    border-radius: 13px;
+}
+
+.channelLogo img {
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
