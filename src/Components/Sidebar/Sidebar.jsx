@@ -30,7 +30,18 @@ export default function Sidebar() {
     const handleMenuClick = (menuItem) => {
         globalDispatch({
             sidebarActiveTab: menuItem?.title
-        })
+        });
+        setactiveSidebarMenu(menuItem?.title);
+        navigate(menuItem?.route);
+    }
+
+    const handleExploreMenuClick = (menuItem) => {
+        globalDispatch({
+            sidebarActiveTab: menuItem?.title,
+            homePageCategoryId: menuItem?.apicategory,
+            homePageVideosToken: "",
+            homePageVideos: []
+        });
         setactiveSidebarMenu(menuItem?.title);
         navigate(menuItem?.route);
     }
@@ -84,7 +95,7 @@ export default function Sidebar() {
                 <div className="menu_1">
                     {categoryMenuList ? <>
                         {categoryMenuList.map((menuItem, key) =>
-                            <div className={'listItem ' + (activeSidebarMenu === menuItem.title ? 'activeMenu' : null)} key={key} onClick={() => setactiveSidebarMenu(menuItem.title)}>
+                            <div className={'listItem ' + (activeSidebarMenu === menuItem.title ? 'activeMenu' : null)} key={key} onClick={() => handleExploreMenuClick(menuItem)}>
                                 <span className='icon'></span>{activeSidebarMenu === menuItem.title ? menuItem.activeIcon : menuItem.icon}
                                 <span className='title'>{menuItem.title}</span>
                             </div>

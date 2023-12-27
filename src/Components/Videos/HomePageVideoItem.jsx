@@ -3,13 +3,16 @@ import { ImageConfig } from '../../Constants/config'
 import moment from 'moment';
 import "./HomePageVideoItem.css";
 import ApiService from '../../Services/ApiService';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../Constants/constants';
 
 export default function HomePageVideoItem(props) {
+    const navigate = useNavigate();
     const { videoId, channelId, thumbnailUrl, contentDetails,channelInfo,  channelLogo, title, channelTitle, statistics, publishedAt } = props.video;
     const ApiServices = new ApiService();
     // const [videoChannelInfo, setVideoChannelInfo] = useState([]);
 
-    function convertViewCount(viewCount) {
+    function convertViewCount(viewCount) {                                                                                                                  
         viewCount = parseInt(viewCount);
 
         if (viewCount >= 1000000) {
@@ -73,7 +76,7 @@ export default function HomePageVideoItem(props) {
         <>
             <div key={videoId} className="video">
                 <div className="thumbnail">
-                    <img src={thumbnailUrl} alt="" />
+                    <img onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} src={thumbnailUrl} alt="" />
                     <span className="minit">{convertDuration(contentDetails?.duration)}</span>
                 </div>
                 <div className="video-info">

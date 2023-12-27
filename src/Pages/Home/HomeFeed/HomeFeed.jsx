@@ -735,7 +735,7 @@ export default function HomeFeed() {
 
     const fetchVideos = async () => {
         try {
-            const videos = await ApiServices.getHomeVideos(globalState?.homePageVideosToken);
+            const videos = await ApiServices.getHomeVideos(globalState?.homePageVideosToken, globalState?.homePageCategoryId);
             if(videos?.nextPageToken){
                 globalDispatch({
                     homePageVideosToken: videos?.nextPageToken
@@ -753,7 +753,8 @@ export default function HomeFeed() {
                     };
                 })
             );
-            setTrendingVideos((prevVideos) => [...prevVideos, ...videosWithChannelInfo]);
+            setTrendingVideos(videosWithChannelInfo);
+            // setTrendingVideos((prevVideos) => [...prevVideos, ...videosWithChannelInfo]);
             console.log('trendingVideos ==>', trendingVideos);
 
             // globalDispatch({
@@ -791,13 +792,22 @@ export default function HomeFeed() {
         return videoData;
     }
 
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         // setTrendingVideos(YoutubeVideos);
-    //         await fetchVideos();
-    //     }
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        async function fetchData() {
+            setTrendingVideos([]);
+            await fetchVideos();
+        }
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        console.log('globalState?.homePageCategoryId', globalState?.homePageCategoryId);
+        async function fetchData() {
+            // setTrendingVideos(YoutubeVideos);
+            await fetchVideos();
+        }
+        fetchData();
+    }, [globalState?.homePageCategoryId]);
 
     return (
         <div className='homeVideos flex flex-wrap justify-evenly items-center w-full'>

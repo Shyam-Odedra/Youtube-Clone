@@ -96,7 +96,7 @@ export default function Navbar() {
             <div className='navbar flex items-center justify-between px-5 py-3'>
                 <div className='flex items-center navbar_logo'>
                     <MenuOutlinedIcon className='menuIcon cursor-pointer' />
-                    <img src={ImageConfig.YOUTUBE_DARK_LOGO} className='cursor-pointer' alt="" />
+                    <img onClick={() => navigate(ROUTES.HOME)} src={ImageConfig.YOUTUBE_DARK_LOGO} className='cursor-pointer' alt="" />
                 </div>
                 <div className='navbar_search'>
                     <input type="text" value={searchValue} name="searchWord" placeholder='Search' onChange={(e) => setSearchValue(e.target.value)} required />

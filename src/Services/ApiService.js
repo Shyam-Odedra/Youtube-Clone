@@ -1,8 +1,11 @@
 const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 export default class ApiService {
 
-    async getHomeVideos(nextPageToken) {
-        const URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=20&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&pageToken=${nextPageToken}`;
+    async getHomeVideos(nextPageToken, categoryId) {
+        let URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=20&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&pageToken=${nextPageToken}`;
+        if(categoryId){
+            URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=20&videoCategoryId=${categoryId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&pageToken=${nextPageToken}`;
+        }
         try {
             const response = await fetch(URL);
 
@@ -67,6 +70,22 @@ export default class ApiService {
             return await response.json();
         } catch (error) {
             console.error('getVideoDetails - Error :', error.message);
+            throw error;
+        }
+    }
+
+    async getVideoComments(videoId) {
+        const URL = `${BASE_URL}/commentThreads?part=snippet,replies&maxResults=50&videoId=${videoId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+        try {
+            const response = await fetch(URL); 
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('getVideoComments - Error :', error.message);
             throw error;
         }
     }
