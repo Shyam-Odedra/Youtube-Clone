@@ -3,9 +3,22 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Video.css';
 import YouTube from 'react-youtube';
 import ApiService from '../../Services/ApiService';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 import Context from '../../Context/Context';
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import ContentCutOutlinedIcon from '@mui/icons-material/ContentCutOutlined';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import { Tooltip } from '@mui/material';
+import { ROUTES } from '../../Constants/constants';
+import VideoComments from '../../Components/VideoComments/VideoComments';
+import RelatedVideos from '../../Components/RelatedVideos/RelatedVideos';
+import { useDispatch } from 'react-redux';
+import { getVideoComments } from '../../Store/reducers/getVideoComments';
+import { clearVideoComments } from '../../Store/features/youtubeSlice';
 
 const videoInfo = {
     "kind": "youtube#videoListResponse",
@@ -874,17 +887,885 @@ const commentsData = {
 }
 
 
+const relatedVideoInfo = {
+    "kind": "youtube#searchListResponse",
+    "etag": "V2hMbKAUF0Q7B8cw5PbXxh33l7o",
+    "nextPageToken": "CBkQAA",
+    "regionCode": "IN",
+    "pageInfo": {
+        "totalResults": 1000000,
+        "resultsPerPage": 25
+    },
+    "items": [
+        {
+            "kind": "youtube#searchResult",
+            "etag": "3ZC863ENn4xGSYQIOn65DRgOXiM",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "FEUa_Xz8W6c"
+            },
+            "snippet": {
+                "publishedAt": "2023-06-16T12:44:11Z",
+                "channelId": "UC2sIhf108S02F0Qlb2a88eQ",
+                "title": "New Trader Psychology vs Rich Trader Psychology || Anish Singh Thakur || Booming Bulls",
+                "description": "OPEN YOUR DEMAT ACCOUNT IN ZERODHA:* https://bit.ly/3gyhIWN and send your ID to demat@boomingbulls.com Website: ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/FEUa_Xz8W6c/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/FEUa_Xz8W6c/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/FEUa_Xz8W6c/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Booming Bulls",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-06-16T12:44:11Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "gVcEx49AXa9b-fRihjs3eizBYoQ",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "whe0B7hJJJ0"
+            },
+            "snippet": {
+                "publishedAt": "2022-11-06T04:00:07Z",
+                "channelId": "UCEAAzv2OBqxsSczKJ2QZyGQ",
+                "title": "Trade with Psychology | Risk Management in Share Market",
+                "description": "Start Investing in Share Market Open a Free Demat Account on Angel Broking: https://bit.ly/AngelOneAcc ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/whe0B7hJJJ0/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/whe0B7hJJJ0/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/whe0B7hJJJ0/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Pushkar Raj Thakur : Business Coach",
+                "liveBroadcastContent": "none",
+                "publishTime": "2022-11-06T04:00:07Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "rHM-a87nQ4yTqIiDBDo4O0JlaLo",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "YfhHuqUMz3U"
+            },
+            "snippet": {
+                "publishedAt": "2021-03-25T14:00:09Z",
+                "channelId": "UCYFQzaZyTUzY-Tiytyv3HhA",
+                "title": "Trading Psychology and the 5 Rules to follow",
+                "description": "The most common problem with any day trader is having the proper trading psychology. Trading psychology, meaning that a day ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/YfhHuqUMz3U/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/YfhHuqUMz3U/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/YfhHuqUMz3U/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "The Moving Average",
+                "liveBroadcastContent": "none",
+                "publishTime": "2021-03-25T14:00:09Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "VteKwkrwGLOR09YUYoMjmq11Wgw",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "QgybpHTlfQ0"
+            },
+            "snippet": {
+                "publishedAt": "2023-11-18T11:35:00Z",
+                "channelId": "UCE5wDMNEZElnuRDk6TDPOYg",
+                "title": "Trading Psychology | Decode Trading By Power Of Stocks | EP-1 | English Subtitle |",
+                "description": "SEBI Report ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/QgybpHTlfQ0/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/QgybpHTlfQ0/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/QgybpHTlfQ0/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "POWER OF STOCKS",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-11-18T11:35:00Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "UHNliBITL_tLzR-QSOx8lEL8tEo",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "bkP-pNCY7Fc"
+            },
+            "snippet": {
+                "publishedAt": "2023-11-04T11:30:15Z",
+                "channelId": "UC6VsKH_O59Kdc_yYATRGc_A",
+                "title": "Trading Psychology Full Course | Master Trading Psychology in 30 Days Challenge",
+                "description": "Important Videos To Watch - 1- 9.30 Am Strategy - https://youtu.be/pmlZl2pUOPE 2- 3 Pm Trading Strategy ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/bkP-pNCY7Fc/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/bkP-pNCY7Fc/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/bkP-pNCY7Fc/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Trading Techstreet",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-11-04T11:30:15Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "2ZWa--xCkfg0KbqfzZUyaRGLVfU",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "iTaSZyikwKk"
+            },
+            "snippet": {
+                "publishedAt": "2022-02-28T15:02:37Z",
+                "channelId": "UCE5wDMNEZElnuRDk6TDPOYg",
+                "title": "Trading Psychology",
+                "description": "Power Of Stock learning App:- https://play.google.com/store/apps/details?id=com.powerofstock Shop official POS Merch:- ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/iTaSZyikwKk/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/iTaSZyikwKk/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/iTaSZyikwKk/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "POWER OF STOCKS",
+                "liveBroadcastContent": "none",
+                "publishTime": "2022-02-28T15:02:37Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "n-nwZkR5aTVQflfH3Kh2Ms9Qqog",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "jqqv4Z3_fY8"
+            },
+            "snippet": {
+                "publishedAt": "2023-11-12T22:41:30Z",
+                "channelId": "UClmk43er-fKtpocnEOcsKUA",
+                "title": "Master Your Trading Psychology In 5 Steps",
+                "description": "How To Master Your Trading Psychology In 5 Steps Get free updates on more ways to learn with Me & My team: ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/jqqv4Z3_fY8/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/jqqv4Z3_fY8/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/jqqv4Z3_fY8/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Jdun Trades",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-11-12T22:41:30Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "evOkneQC29laLEXlhxdl72TLnCU",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "7qn-D9VJ4io"
+            },
+            "snippet": {
+                "publishedAt": "2023-10-26T10:00:10Z",
+                "channelId": "UCcanCrgSWVYW7ZFNKQZso0g",
+                "title": "Trading SECRETS by Trading LEGEND - Trading Psychology",
+                "description": "Open an account to get access to FREE session https://upstox.com/open-account/?f=8J9Y https://invite.dhan.co/?join=ABAR89 ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/7qn-D9VJ4io/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/7qn-D9VJ4io/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/7qn-D9VJ4io/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Abhishek Kar",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-10-26T10:00:10Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "BUuxZ6jzcjwWlpFUHSDoChvxVFI",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "GJ-qqpyJ3Ms"
+            },
+            "snippet": {
+                "publishedAt": "2023-12-27T15:15:01Z",
+                "channelId": "UC2W0sM54z8X0VRaVV6bkEnw",
+                "title": "Scalping trading psychology | Scalping Strategy | Position sizing in option buying | Trader Swami",
+                "description": "Scalping trading psychology | Scalping Strategy | Position sizing in option buying | Trader Swami Disclaimer: THE INFORMATION ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/GJ-qqpyJ3Ms/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/GJ-qqpyJ3Ms/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/GJ-qqpyJ3Ms/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Trader Swami",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-12-27T15:15:01Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "l56jsWLn3wHuK5ZM6PfEA981YGY",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "s8aPvdf7xjk"
+            },
+            "snippet": {
+                "publishedAt": "2021-08-21T04:30:17Z",
+                "channelId": "UCEAAzv2OBqxsSczKJ2QZyGQ",
+                "title": "Human Psychology in Share Market | 100% Proven Mental Tricks to Make Money &amp; Avoid Loses",
+                "description": "In this video you will learn 3 Proven Phenomenon of Human Psychology which People Use Against themselves and Book Loses ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/s8aPvdf7xjk/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/s8aPvdf7xjk/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/s8aPvdf7xjk/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Pushkar Raj Thakur : Business Coach",
+                "liveBroadcastContent": "none",
+                "publishTime": "2021-08-21T04:30:17Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "WTUk6IYdwj20K8OA_c6eWkWbO9k",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "82fIoomXdYs"
+            },
+            "snippet": {
+                "publishedAt": "2023-01-07T11:26:45Z",
+                "channelId": "UCUMAP6ENB2EIq04ZKMw4EqA",
+                "title": "Trading Psychology!",
+                "description": "Telegram - https://telegram.dog/tradesparadise Paradise Courses - https://zefvcm.courses.store/courses Download our App for ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/82fIoomXdYs/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/82fIoomXdYs/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/82fIoomXdYs/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Traders Paradise Live",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-01-07T11:26:45Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "Qj5dJZoJE_6ZpKMhGY_UM5M17o8",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "z1xV3x-_69M"
+            },
+            "snippet": {
+                "publishedAt": "2022-03-27T14:30:17Z",
+                "channelId": "UCfYHvYyFICHwHVO9lHwmiig",
+                "title": "Trading Psychology for beginners | Top 10 Trading Psychology Rules | Control emotions in Trading",
+                "description": "Trading Psychology for beginners | Top 10 Trading Psychology Rules | How to Control emotions in Trading Buy Our ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/z1xV3x-_69M/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/z1xV3x-_69M/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/z1xV3x-_69M/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Neeraj joshi",
+                "liveBroadcastContent": "none",
+                "publishTime": "2022-03-27T14:30:17Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "1uj5T5RKkFMpAOUKMrmPVbkyHdg",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "eLa57T2zVic"
+            },
+            "snippet": {
+                "publishedAt": "2021-03-25T12:29:45Z",
+                "channelId": "UC2sIhf108S02F0Qlb2a88eQ",
+                "title": "Psychology in Trading?",
+                "description": "OPEN YOUR DEMAT ACCOUNT IN ZERODHA: https://bit.ly/3gyhIWN OPEN YOUR DEMAT ACCOUNT IN UPSTOX: ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/eLa57T2zVic/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/eLa57T2zVic/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/eLa57T2zVic/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Booming Bulls",
+                "liveBroadcastContent": "none",
+                "publishTime": "2021-03-25T12:29:45Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "LtxQGEzFdg7bYhLvNic4yei6H8o",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "5JMkl6Z31ao"
+            },
+            "snippet": {
+                "publishedAt": "2023-12-22T11:42:48Z",
+                "channelId": "UCE5wDMNEZElnuRDk6TDPOYg",
+                "title": "Trading Psychology | Decode Trading By Power Of Stocks | EP-3 | English Subtitle |",
+                "description": "POS Traders Club:- Website - https://powerofstockspro.com/ iOS - https://apps.apple.com/app/power-of-stocks-pro/id6450297635 ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/5JMkl6Z31ao/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/5JMkl6Z31ao/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/5JMkl6Z31ao/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "POWER OF STOCKS",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-12-22T11:42:48Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "riXMqzCiyHBH1M1Xsj0GSoxGoVo",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "WuDqnwsOtk4"
+            },
+            "snippet": {
+                "publishedAt": "2020-02-12T11:30:02Z",
+                "channelId": "UCN3DuDf9Abnksfkh8aXyLcw",
+                "title": "7 Key Points Build Your Trading Psychology ! Beginner To Professional Trader Part-1!Trading Mindset",
+                "description": "DISCLAIMER- The video is only and only for educational purpose . We analyze and try to learn information related to ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/WuDqnwsOtk4/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/WuDqnwsOtk4/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/WuDqnwsOtk4/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Art of Option Learning",
+                "liveBroadcastContent": "none",
+                "publishTime": "2020-02-12T11:30:02Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "03jGJR_1p2sfiwJVXr91eVCZFH4",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "cacJQmsoVTs"
+            },
+            "snippet": {
+                "publishedAt": "2023-02-08T14:30:08Z",
+                "channelId": "UCcanCrgSWVYW7ZFNKQZso0g",
+                "title": "Complete Trading Psychology | Trading is NOT gambling",
+                "description": "Complete Trading Psychology | Trading is NOT gambling OPEN account in Dhan via this link (ONLY)   ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/cacJQmsoVTs/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/cacJQmsoVTs/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/cacJQmsoVTs/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Abhishek Kar",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-02-08T14:30:08Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "L_CkTRJYxrnLXN4581ILR2Gqkjo",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "SO1PEL52H2k"
+            },
+            "snippet": {
+                "publishedAt": "2023-12-24T13:00:18Z",
+                "channelId": "UC9o1F_8M5B1hZ00posMaY0g",
+                "title": "What is Trading Psychology &amp; How To Master It? | How Can I Improve My Psychology in Trading?",
+                "description": "What is Trading Psychology & How To Master It? | How Can I Improve My Psychology in Trading? Twitter Handle ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/SO1PEL52H2k/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/SO1PEL52H2k/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/SO1PEL52H2k/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Trading with Groww",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-12-24T13:00:18Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "muz95WjiXiQfQS8k5GrFWS5c1-k",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "F26pk10Y6Hw"
+            },
+            "snippet": {
+                "publishedAt": "2023-06-14T17:26:57Z",
+                "channelId": "UC0ep2A36j7gTFdqW2Yvngbg",
+                "title": "Trading Psychology : Consistency",
+                "description": "My Only REAL Social Accounts: IG: https://www.instagram.com/tori.trades/ FB: https://www.facebook.com/tori.trades Twitter: ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/F26pk10Y6Hw/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/F26pk10Y6Hw/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/F26pk10Y6Hw/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Tori Trades",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-06-14T17:26:57Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "02AiCmpj_7JLO9e2UBbtHZ1QC9g",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "lrruSTQ32Ms"
+            },
+            "snippet": {
+                "publishedAt": "2022-09-17T04:38:31Z",
+                "channelId": "UCebKD61pQspkOedEtFjUxSw",
+                "title": "Trading psychology that changed everything for me #forextips",
+                "description": "",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/lrruSTQ32Ms/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/lrruSTQ32Ms/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/lrruSTQ32Ms/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Raja Banks",
+                "liveBroadcastContent": "none",
+                "publishTime": "2022-09-17T04:38:31Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "OjAPjyiWDqrSv4X94N0liwbEaWE",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "r0b2UwdebjI"
+            },
+            "snippet": {
+                "publishedAt": "2023-06-12T14:30:13Z",
+                "channelId": "UC8tnMSzCEcVn_9YGCF4V68w",
+                "title": "TRADING PSYCHOLOGY MASTERCLASS",
+                "description": "In this video you will learn What is Trading psychology How to Improve Trading Psychology FOR PARTICIPATING IN COURSE ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/r0b2UwdebjI/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/r0b2UwdebjI/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/r0b2UwdebjI/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Young Trader Viraj",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-06-12T14:30:13Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "Zr3EKCUXdV45vJDUWvOjKo94g5c",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "6sJ0z5uLgwQ"
+            },
+            "snippet": {
+                "publishedAt": "2021-04-22T10:24:14Z",
+                "channelId": "UC2sIhf108S02F0Qlb2a88eQ",
+                "title": "PSYCHOLOGY IN TRADING || EPISODE - 01 || ANISH SINGH THAKUR || BOOMING BULLS",
+                "description": "BOOKS I RECOMMEND: https://boomingbulls.com/resources/ OPEN YOUR DEMAT ACCOUNT IN ZERODHA: ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/6sJ0z5uLgwQ/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/6sJ0z5uLgwQ/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/6sJ0z5uLgwQ/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Booming Bulls",
+                "liveBroadcastContent": "none",
+                "publishTime": "2021-04-22T10:24:14Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "92evw7xzRv9N2gM2gjhuh6-bJJg",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "xoGOZD7-3gY"
+            },
+            "snippet": {
+                "publishedAt": "2020-01-17T13:24:40Z",
+                "channelId": "UCENW0ZwwrW6NG52OJnRxNLg",
+                "title": "Trading Psychology | Why Normal Doesn’t Make Money | Part 1",
+                "description": "Opto brings you the first instalment from our trading psychology series, \"Normal doesn't make money\". Expert stock market trader, ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/xoGOZD7-3gY/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/xoGOZD7-3gY/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/xoGOZD7-3gY/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "OPTO",
+                "liveBroadcastContent": "none",
+                "publishTime": "2020-01-17T13:24:40Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "WACw8OpZUdpLS-cb4iM-tC31zoA",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "aGcR2E7Vr4Q"
+            },
+            "snippet": {
+                "publishedAt": "2022-10-25T12:17:00Z",
+                "channelId": "UCcanCrgSWVYW7ZFNKQZso0g",
+                "title": "Mindset for trading | Trading Psychology",
+                "description": "Mindset for trading | Trading Psychology Kuku Diwali code DIWALI50 (19th-25th Oct)-50% of on annual plan & gifts worth 10 Lakh ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/aGcR2E7Vr4Q/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/aGcR2E7Vr4Q/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/aGcR2E7Vr4Q/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Abhishek Kar",
+                "liveBroadcastContent": "none",
+                "publishTime": "2022-10-25T12:17:00Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "e-oWL_vrA5Fffg4Xy6p7N6-KtlE",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "5kPl8b-I-gk"
+            },
+            "snippet": {
+                "publishedAt": "2023-04-22T13:48:53Z",
+                "channelId": "UCE5wDMNEZElnuRDk6TDPOYg",
+                "title": "Intraday Trading Psychology",
+                "description": "POS Traders Club:- Website - https://powerofstockspro.com/ iOS - https://apps.apple.com/app/power-of-stocks-pro/id6450297635 ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/5kPl8b-I-gk/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/5kPl8b-I-gk/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/5kPl8b-I-gk/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "POWER OF STOCKS",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-04-22T13:48:53Z"
+            }
+        },
+        {
+            "kind": "youtube#searchResult",
+            "etag": "H_mK-__p-8dUsAnbsEFm1C4nOHQ",
+            "id": {
+                "kind": "youtube#video",
+                "videoId": "mMFRlxhblSc"
+            },
+            "snippet": {
+                "publishedAt": "2023-11-27T14:00:29Z",
+                "channelId": "UCfYHvYyFICHwHVO9lHwmiig",
+                "title": "Turn LOSS into PROFITS: Trading Psychology Masterclass | Trading in Share Market",
+                "description": "Trading Psychology Masterclass: Turn Loss into Profits | Trading in Share Market This video covers the in-depth exploration of ...",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/mMFRlxhblSc/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/mMFRlxhblSc/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/mMFRlxhblSc/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Neeraj joshi",
+                "liveBroadcastContent": "none",
+                "publishTime": "2023-11-27T14:00:29Z"
+            }
+        }
+    ]
+}
+
+
 
 export default function Video() {
+    const navigate = useNavigate();
     const ApiServices = new ApiService();
     const [queryParams] = useSearchParams();
     const [videoId, setVideoId] = useState();
     const [showMore, setShowMore] = useState(false);
     const { globalState, globalDispatch } = useContext(Context);
     const [relatedVideosData, setRelatedVideosData] = useState([]);
+    const [isSubscribe, setIsSubscribe] = useState(false);
     const [videoDetails, setVideoDetails] = useState([]);
     const [channelDetails, setChannelDetails] = useState([]);
     const [commentsList, setCommentsList] = useState([]);
+    const dispatch = useDispatch();
+
     // const [videoDetails, setVideoDetails] = useState(videoInfo?.items?.[0]);
     // const [channelDetails, setChannelDetails] = useState(channelInfo?.items?.[0]);
     // const [commentsList, setCommentsList] = useState(commentsData?.items);
@@ -896,8 +1777,10 @@ export default function Video() {
             if (queryParams.get('id')) {
                 setVideoId(queryParams.get('id'));
                 await getVideoInformation(queryParams.get('id'));
-                await getCommentsData(queryParams.get('id'));
-            }
+                // await getCommentsData(queryParams.get('id'));
+                dispatch(clearVideoComments())
+                dispatch(getVideoComments(queryParams.get('id')))
+            }   
         }
         fetchData();
     }, []);
@@ -907,6 +1790,7 @@ export default function Video() {
             const videoData = await ApiServices.getVideoDetails(videoId);
             if (videoData) {
                 setVideoDetails(videoData?.items?.[0]);
+                await fetchSearchResults(videoData?.items?.[0]?.snippet?.title);
                 if (videoData?.items?.[0]?.snippet?.channelId) {
                     const channelData = await ApiServices.getVideoChannelInfo(videoData?.items?.[0]?.snippet?.channelId);
                     setChannelDetails(channelData?.items?.[0]);
@@ -948,9 +1832,9 @@ export default function Video() {
         },
     }
 
-    const fetchSearchResults = async () => {
+    const fetchSearchResults = async (query) => {
         try {
-            const searchResults = await ApiServices.getSearchResults(globalState?.searchQuery, globalState?.searchVideosToken);
+            const searchResults = await ApiServices.getSearchResults(query, globalState?.searchVideosToken);
             if (searchResults?.nextPageToken) {
                 // globalDispatch({
                 //     searchVideosToken: searchResults?.nextPageToken
@@ -1009,24 +1893,22 @@ export default function Video() {
 
     const showRelatedVideoItems = (item) => {
         if (item?.videoId) {
-            return <div className='searchResultVideo mt-4'>
+            return <div className='mb-3'>
                 <div className="flex justify-start">
-                    <div className="img w-[360px] mr-4 flex justify-center ">
+                    <div onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className="img w-[170px] flex-1 max-w-[170px] mr-2 flex justify-center ">
                         <div className="image-container w-full flex justify-center items-center overflow-hidden">
                             <img className='rounded-xl w-full' src={item?.thumbnailUrl} alt="" />
                         </div>
                     </div>
-                    <div className="flex max-w-[720px] flex-col items-start text-start align-middle">
-                        <span className='text-base'>{item?.title}</span>
+                    <div className="flex max-w-[210px] flex-col items-start text-start align-middle">
+                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className='text-sm line-clamp-2'>{item?.title}</span>
                         <div className="user">
-                            <span className="views text-[#aaa] text-sm">{`${convertViewCount(item?.statistics?.viewCount)} view`}</span>
-                            <span className='text-[#aaa] text-sm'>{moment(item?.publishedAt).fromNow()}</span>
+                            <span className="text-[12px] text-[#aaa]">{item?.channelTitle}</span>
                         </div>
-                        <div className="user mt-2">
-                            <img src={item?.channelImage} alt="" />
-                            <span className="text-sm ml-2 text-[#aaa]">{item?.channelTitle}</span>
+                        <div className="user">
+                            <span className="views text-[#aaa] text-[12px]">{`${convertViewCount(item?.statistics?.viewCount)} view`}</span>
+                            <span className='text-[#aaa] text-[12px]'>{moment(item?.publishedAt).fromNow()}</span>
                         </div>
-                        <span className='text-sm mt-2 text-[#aaa]'>{item?.description}</span>
                     </div>
                 </div>
             </div>
@@ -1093,49 +1975,49 @@ export default function Video() {
                                 <div className="title mt-5">
                                     <p className='text-xl font-medium'>{videoDetails?.snippet?.title}</p>
                                 </div>
-                                <div className="channelInfo flex justify-start items-center mt-3">
-                                    <div className="channelLogo">
-                                        <img src={channelDetails?.snippet?.thumbnails?.medium?.url} alt="" />
+                                <div className="channelInfo flex justify-between items-center mt-3">
+                                    <div className="flex justify-start items-center">
+                                        <div className="channelLogo">
+                                            <img src={channelDetails?.snippet?.thumbnails?.medium?.url} alt="" />
+                                        </div>
+                                        <div className="flex flex-col ml-3">
+                                            <span className='text-[#fff] text-base'>{channelDetails?.snippet?.title}</span>
+                                            <span className='text-[#aaa] text-sm'>{`${formatYouTubeSubscribers(channelDetails?.statistics?.subscriberCount)} subscribers`}</span>
+                                        </div>
+                                        <div className='ml-8'>
+                                            {isSubscribe ?
+                                                <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[#fff] text-[15px] text-[#111] rounded-full py-2 px-3'>Subscribe</button>
+                                                :
+                                                <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[rgba(255,255,255,0.1)] text-[15px] text-[white] hover:bg-[#3f3f3f] flex justify-center items-center rounded-full py-2 px-3'><NotificationsActiveIcon fontSize='small' color='white' className='mr-3' /> Subscribed</button>
+                                            }
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col ml-3">
-                                        <span className='text-[#fff] text-base'>{channelDetails?.snippet?.title}</span>
-                                        <span className='text-[#aaa] text-sm'>{`${formatYouTubeSubscribers(channelDetails?.statistics?.subscriberCount)} subscribers`}</span>
+                                    <div className="flex justify-start items-center">
+                                        <button className='bg-[rgba(255,255,255,0.1)] hover:bg-[#3f3f3f] text-[15px] text-[white] flex justify-center items-center rounded-full py-2 px-4 mr-2'> <ThumbUpOutlinedIcon fontSize='small' color='white' />  <span className='mx-3 mr-4'>{videoDetails?.statistics?.likeCount}</span><ThumbDownAltOutlinedIcon fontSize='small' color='white' /></button>
+                                        <button className='bg-[rgba(255,255,255,0.1)]  hover:bg-[#3f3f3f] text-[15px] text-[white] flex justify-center items-center rounded-full py-2 px-4 mr-2'> <ShareOutlinedIcon fontSize='small' color='white' className='mr-2' />Share</button>
+                                        <button className='bg-[rgba(255,255,255,0.1)]  hover:bg-[#3f3f3f] text-[15px] text-[white] flex justify-center items-center rounded-full py-2 px-4 mr-2'> <DownloadOutlinedIcon fontSize='small' color='white' className='mr-2' />Download</button>
+                                        <button className='bg-[rgba(255,255,255,0.1)]  hover:bg-[#3f3f3f] text-[15px] text-[white] flex justify-center items-center rounded-full py-2 px-4'> <ContentCutOutlinedIcon fontSize='small' color='white' className='mr-2' />Clip</button>
+
                                     </div>
                                 </div>
                                 <div className="mt-3 w-full p-3 bg-[#282829] rounded-xl">
-                                    {videoDetails?.snippet?.description?.length ? 
-                                    <div className={'text-[15px] ' + (showMore ? 'line-clamp-none' : 'line-clamp-4')}
-                                    dangerouslySetInnerHTML={{ __html: (videoDetails?.snippet?.description)?.replace(/\n/g, '<br />') }} />
-                                : ""}
+                                    <span className="mr-2 text-sm">{`${convertViewCount(videoDetails?.statistics?.viewCount)} views`}</span>
+                                    <span className='text-sm'>{moment(videoDetails?.snippet?.publishedAt).fromNow()}</span>
+                                    {videoDetails?.snippet?.description?.length ?
+                                        <div className={'text-[15px] w-full ' + (showMore ? 'line-clamp-none' : 'line-clamp-4')}
+                                            dangerouslySetInnerHTML={{ __html: (videoDetails?.snippet?.description)?.replace(/\n/g, '<br />') }} />
+                                        : ""}
                                     {/* {TradingComponent(videoDetails?.snippet?.description)} */}
                                     <span className='text-[15px] mt-1 cursor-pointer' onClick={() => setShowMore(!showMore)}>{showMore ? 'Show less' : 'Show more'}</span>
                                 </div>
                             </div> : ''
                         }
-                        {commentsList?.length ?
-                            <div className="my-5">
-                                <span className='text-lg font-semibold'>{`${videoDetails?.statistics?.commentCount} Comments`}</span>
-                                <div className="mt-5 w-full">
-                                    {commentsList?.map((item) => {
-                                        return <div className='comment w-full'>
-                                            <div className="commentInfo flex justify-start items-start mt-5">
-                                                <div className="commentLogo">
-                                                    <img src={item?.snippet?.topLevelComment?.snippet?.authorProfileImageUrl} alt="" />
-                                                </div>
-                                                <div className="flex flex-col ml-4">
-                                                    <span className='text-[#fff] text-[12px]'>{item?.snippet?.topLevelComment?.snippet?.authorDisplayName}</span>
-                                                    <div className='text-[15px] mt-1' dangerouslySetInnerHTML={{ __html: (item?.snippet?.topLevelComment?.snippet?.textOriginal)?.replace(/\n/g, '<br />') }} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    })}
-                                </div>
-                            </div> : ''
-                        }
+                        <VideoComments  commentCount={videoDetails?.statistics?.commentCount}/>
                     </div>
                 </div>
-                <div className="relatedVideosSection">
-                    {showRelatedVideoItems()}
+                <div className="relatedVideosSection ml-5">
+                    <RelatedVideos />
+                    {relatedVideosData?.map((videoItem) => showRelatedVideoItems(videoItem))}
                 </div>
             </div>
         </div>

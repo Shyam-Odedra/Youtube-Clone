@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './HomeFeed.css';
-import HomePageVideoItem from '../../../Components/Videos/HomePageVideoItem';
+import HomeVideoCard from '../../../Components/Videos/HomeVideoCard';
 import { ImageConfig } from '../../../Constants/config';
-import ApiService from '../../../Services/ApiService';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Context from '../../../Context/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
+import { getHomePageVideos } from '../../../Store/reducers/homePageVideos';
+import { clearHomeVideos } from '../../../Store/features/youtubeSlice';
 
 export const VideoData = [
     {
@@ -729,108 +731,70 @@ const YoutubeVideos = [
 ]
 
 export default function HomeFeed() {
-    const [trendingVideos, setTrendingVideos] = useState([]);
-    const ApiServices = new ApiService();
-    const { globalState, globalDispatch } = useContext(Context);
+    const loading = useSelector(state => state.youtube.loading);
+    const videos = useSelector(state => state.youtube.homeVideos);
+    const homeCategoryId = useSelector(state => state.youtube.homeCategoryId);
+    const dispatch = useDispatch();
 
-    const fetchVideos = async () => {
-        try {
-            const videos = await ApiServices.getHomeVideos(globalState?.homePageVideosToken, globalState?.homePageCategoryId);
-            if(videos?.nextPageToken){
-                globalDispatch({
-                    homePageVideosToken: videos?.nextPageToken
-                })
-            }
-            console.log('videos', videos);
-            const finalData = extractVideoData(videos);
-            // Map through videos and get channelInfo for each
-            const videosWithChannelInfo = await Promise.all(
-                finalData.map(async (videoItem) => {
-                    const channelInfo = await getChannelInfo(videoItem?.channelId);
-                    return {
-                        ...videoItem,
-                        channelInfo: channelInfo,
-                    };
-                })
-            );
-            setTrendingVideos(videosWithChannelInfo);
-            // setTrendingVideos((prevVideos) => [...prevVideos, ...videosWithChannelInfo]);
-            console.log('trendingVideos ==>', trendingVideos);
-
-            // globalDispatch({
-            //     homePageVideos: videos
-            // })
-        } catch (error) {
-            console.log('Error => ', error);
-        }
-    }
-
-    const getChannelInfo = async (channelId) => {
-        try {
-            return await ApiServices.getVideoChannelInfo(channelId);
-        } catch (error) {
-            console.log('getChannelInfo : Error => ', error);
-        }
-    }
-
-    const extractVideoData = (videos) => {
-        const videoData = videos?.items?.map(item => {
-            return {
-                videoId: item?.id,
-                publishedAt: item?.snippet?.publishedAt,
-                channelId: item?.snippet?.channelId,
-                title: item?.snippet?.title,
-                description: item?.snippet?.description,
-                thumbnailUrl: item?.snippet?.thumbnails?.maxres?.url || item?.snippet?.thumbnails?.medium?.url,
-                channelTitle: item?.snippet?.channelTitle,
-                categoryId: item?.snippet?.categoryId,
-                contentDetails: item?.contentDetails,
-                statistics: item?.statistics
-            };
-        });
-
-        return videoData;
-    }
+    // useEffect(() => {
+    //     console.log('videos', videos);
+    //     console.log('loading', loading);
+    //     console.log('videos.length', videos.length);
+    // }, [videos])
 
     useEffect(() => {
-        async function fetchData() {
-            setTrendingVideos([]);
-            await fetchVideos();
-        }
-        fetchData();
+        dispatch(getHomePageVideos())
     }, []);
 
     useEffect(() => {
-        console.log('globalState?.homePageCategoryId', globalState?.homePageCategoryId);
-        async function fetchData() {
-            // setTrendingVideos(YoutubeVideos);
-            await fetchVideos();
+        console.log('homeCategoryId', homeCategoryId);
+        dispatch(clearHomeVideos())
+        if(homeCategoryId !== ''){
+            dispatch(getHomePageVideos())
         }
-        fetchData();
-    }, [globalState?.homePageCategoryId]);
+    }, [homeCategoryId]);
+
+    const homePageSkeleton = () => {
+        return <div className='w-full h-full mb-3'>
+            <Skeleton variant="rectangular" className='w-full rounded-xl' animation='wave' sx={{ bgcolor: 'grey.900', width: '100%', height: '180px' }} />
+            <div className="flex w-full flex-1">
+                <Skeleton variant="circular" className='mt-2.5 w-10 mr-3' width={40} height={40} animation='wave' sx={{ bgcolor: 'grey.900' }} />
+                <div className="flex flex-col mt-1 flex-1">
+                    <Skeleton variant="text" sx={{ flex: 1, fontSize: '18px', bgcolor: 'grey.900' }} animation='wave' />
+                    <Skeleton variant="text" sx={{ fontSize: '18px', bgcolor: 'grey.900' }} animation='wave' />
+                </div>
+            </div>
+        </div>
+    }
 
     return (
         <div className='homeVideos flex flex-wrap justify-evenly items-center w-full'>
 
             <InfiniteScroll
-                dataLength={trendingVideos.length} //This is important field to render the next data
-                next={fetchVideos}
+                dataLength={videos.length} //This is important field to render the next data
+                next={() => dispatch(getHomePageVideos())}
+                style={{ width: '100%', height: '100%' }}
                 hasMore={true}
-                // loader={<h4>Loading...</h4>}
                 endMessage={
                     <p style={{ textAlign: 'center' }}>
                         <b>Yay! You have seen it all</b>
                     </p>
                 }
             >
-                {trendingVideos ?
-                    <div className="videos">
-                        {trendingVideos.map((videoItem) => (
-                            <HomePageVideoItem key={videoItem?.videoId} video={videoItem} />
-                        ))}  </div> : ''
+                {videos.length > 0 ?
+                    <div className="videos grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+                        {videos.map((videoItem) => (
+                            <HomeVideoCard key={videoItem?.videoId} video={videoItem} />
+                        ))}
+                    </div>
+                    :
+                    <div className="videos grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))]" >
+                        {Array.from(new Array(20)).map((item) => (
+                            homePageSkeleton()
+                        ))}
+                    </div>
                 }
             </InfiniteScroll >
-
         </div >
     )
 }

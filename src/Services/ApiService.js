@@ -2,9 +2,9 @@ const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 export default class ApiService {
 
     async getHomeVideos(nextPageToken, categoryId) {
-        let URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=20&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&pageToken=${nextPageToken}`;
-        if(categoryId){
-            URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=20&videoCategoryId=${categoryId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&pageToken=${nextPageToken}`;
+        let URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=40&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
+        if(categoryId !== 'all'){
+            URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=50&videoCategoryId=${categoryId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
         }
         try {
             const response = await fetch(URL);
@@ -14,9 +14,6 @@ export default class ApiService {
             }
 
             const videoData = await response.json();
-            // console.log('videoData', videoData);
-
-            // console.log('finalData', finalData);
             return videoData;
         } catch (error) {
             console.error('Error fetching data:', error.message);
@@ -42,7 +39,7 @@ export default class ApiService {
         }
     }
 
-    async getSearchResults(query,nextPageToken) {
+    async getSearchResults(query, nextPageToken) {
         const URL = `${BASE_URL}/search?q=${query}&part=snippet&maxResults=25&pageToken=${nextPageToken}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
         try {
             const response = await fetch(URL);
@@ -74,8 +71,8 @@ export default class ApiService {
         }
     }
 
-    async getVideoComments(videoId) {
-        const URL = `${BASE_URL}/commentThreads?part=snippet,replies&maxResults=50&videoId=${videoId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+    async getVideoComments(videoId, nextPageToken) {
+        const URL = `${BASE_URL}/commentThreads?part=snippet,replies&maxResults=50&videoId=${videoId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
         try {
             const response = await fetch(URL); 
 

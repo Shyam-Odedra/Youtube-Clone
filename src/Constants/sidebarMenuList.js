@@ -94,8 +94,8 @@ export const categoryMenuList = [
   {  
     icon: <MovieIcon />,
     activeIcon: <MovieIcon />,
-    title: 'Movies',
-    apicategory: 24
+    title: 'Technology',
+    apicategory: 28
   },
   {  
     icon: <NewspaperIcon />,
@@ -104,10 +104,10 @@ export const categoryMenuList = [
     apicategory: 25
 
   },
-  {  
-    icon: <LightbulbIcon />,
-    activeIcon: <LightbulbIcon />,
-    title: 'Learning',
-    apicategory: 27
-  },
+  // {  
+  //   icon: <LightbulbIcon />,
+  //   activeIcon: <LightbulbIcon />,
+  //   title: 'Learning',
+  //   apicategory: 26
+  // },
 ];

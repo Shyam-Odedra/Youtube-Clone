@@ -7,6 +7,8 @@ import { categoryMenuList, loginMenuList, sidebarMenuList } from '../../Constant
 import { useLocation, useNavigate } from 'react-router-dom';
 import Context from '../../Context/Context';
 import { ROUTES } from '../../Constants/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCategory } from '../../Store/features/youtubeSlice';
 // import Context from '../../GlobalState/Context';
 
 export default function Sidebar() {
@@ -15,6 +17,8 @@ export default function Sidebar() {
     const [activeSidebarMenu, setactiveSidebarMenu] = useState('');
     const [isLogin, setIsLogin] = useState(false);
     const { globalState, globalDispatch } = useContext(Context);
+    const homeCategoryId = useSelector(state => state.youtube.homeCategoryId);
+    const dispatch = useDispatch();
 
     // const {globalState, globalDispatch} = useContext(Context)
 
@@ -32,6 +36,7 @@ export default function Sidebar() {
             sidebarActiveTab: menuItem?.title
         });
         setactiveSidebarMenu(menuItem?.title);
+        dispatch(changeCategory('all'))
         navigate(menuItem?.route);
     }
 
@@ -42,6 +47,7 @@ export default function Sidebar() {
             homePageVideosToken: "",
             homePageVideos: []
         });
+        dispatch(changeCategory(menuItem?.apicategory))
         setactiveSidebarMenu(menuItem?.title);
         navigate(menuItem?.route);
     }
@@ -57,6 +63,8 @@ export default function Sidebar() {
             setactiveSidebarMenu('Home');
         }
     }, []);
+
+   
 
     return (
         <div className="sidebar">
