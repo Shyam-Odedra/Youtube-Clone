@@ -2,30 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import './Navbar.css';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import MicIcon from '@mui/icons-material/Mic';
-import AppsIcon from '@mui/icons-material/Apps';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-// import { authentication } from '../../Firebase/firebase';
-// import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut  } from "firebase/auth";
-import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
-import Badge from '@mui/material/Badge';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { ImageConfig } from '../../Constants/config';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ROUTES } from '../../Constants/constants';
 import Context from '../../Context/Context';
-// import Context from '../../GlobalState/Context';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUserInfo, setSearchQuery, setUserInfo } from '../../Store/features/youtubeSlice';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState("");
+    const userInfo = useSelector(state => state.youtube.userInfo);
     const { globalState, globalDispatch } = useContext(Context);
     const [queryParams] = useSearchParams();
-    //   const [userData, setUserData] = useState([]);
-    //   const {globalState, globalDispatch} = useContext(Context)
+    const searchQuery = useSelector(state => state.youtube.searchQuery);
+    const dispatch = useDispatch();
 
-    const handleSignIn = async () => {
+    const handleSignIn = async (googleUser) => {
+
+        const idToken = googleUser.getAuthResponse().id_token;
+        console.log({ idToken });
+
         // const pprovider = new GoogleAuthProvider();
         // signInWithPopup(authentication, provider)
         //   .then((response) => {
@@ -76,17 +76,46 @@ export default function Navbar() {
 
     useEffect(() => {
         console.log('object', queryParams.get('query'));
-        if(queryParams.get('query')){
+        if (queryParams.get('query')) {
             setSearchValue(queryParams.get('query'));
+            dispatch(setSearchQuery(queryParams.get('query')));
         }
-    },[]);
+    }, []);
+
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: async (tokenResponse) => {
+            try {
+                const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: {
+                        Authorization: `Bearer ${tokenResponse.access_token}`,
+                    },
+                });
+                if (!userInfoResponse.ok) {
+                    throw new Error(`Failed to fetch user info: ${userInfoResponse.status}`);
+                }
+                const userData = await userInfoResponse.json();
+                dispatch(setUserInfo(userData));
+                console.log('userInfo => ', userData);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        onError: errorResponse => console.log(errorResponse),
+    });
+
+    const signOutHandler = () => {
+        dispatch(clearUserInfo());
+    }
+
 
     const handleSearch = () => {
         if (searchValue) {
-            globalDispatch({
-                searchQuery: searchValue,
-                sidebarActiveTab: "Search"
-            })
+            // globalDispatch({
+            //     searchQuery: searchValue,
+            //     sidebarActiveTab: "Search"
+            // })
+            dispatch(setSearchQuery(searchValue));
             navigate(`${ROUTES.SEARCH}?query=${encodeURIComponent(searchValue)}`)
         }
     }
@@ -108,22 +137,22 @@ export default function Navbar() {
                 {/* <div className='bg-slate-100 cursor-pointer w-9 h-9 flex justify-center items-center rounded-full'>
             <MicIcon className='micIcon' />
           </div> */}
-                {/* {userData ?
-          <div className='navbar_icons'>
-            <VideoCallOutlinedIcon className='appIcon cursor-pointer' />
-            <AppsIcon className='appIcon cursor-pointer' />
-            <Badge badgeContent={4} color="primary" className='appIcon cursor-pointer'>
-              <NotificationsNoneOutlinedIcon color="action" />
-              </Badge>
-            <img alt="Remy Sharp" onClick={signOutHandler} src={userData && userData.profileImage ? userData.profileImage : null} />
-          </div>
-          : */}
-                <div className='navbar_icons h-full py-1.5'>
-                    {/* <AppsIcon className='appIcon cursor-pointer' /> */}
-                    <MoreVertIcon className='dotIcon cursor-pointer' />
-                    <button className='border font-medium rounded-3xl h-full signInButton px-2 text-gray flex items-center cursor-pointer' onClick={handleSignIn}> <AccountCircleOutlinedIcon /><span className='ml-2'>Sign In</span></button>
-                </div>
-                {/* } */}
+                {userInfo?.picture ?
+                    <div className='navbar_icons'>
+                        {/* <VideoCallOutlinedIcon className='appIcon cursor-pointer' />
+                        <AppsIcon className='appIcon cursor-pointer' />
+                        <Badge badgeContent={4} color="primary" className='appIcon cursor-pointer'>
+                            <NotificationsNoneOutlinedIcon color="action" />
+                        </Badge> */}
+                        <span className='mr-3'>{userInfo?.given_name}</span>
+                        <img alt="Remy Sharp" onClick={signOutHandler} src={userInfo && userInfo?.picture ? userInfo?.picture : null} />
+                    </div>
+                    :
+                    <div className='navbar_icons h-full py-1.5'>
+                        <MoreVertIcon className='dotIcon cursor-pointer' />
+                        <button className='border font-medium rounded-3xl h-full signInButton px-2 text-gray flex items-center cursor-pointer' onClick={() => googleLogin()}> <AccountCircleOutlinedIcon /><span className='ml-2'>Sign In</span></button>
+                    </div>
+                }
             </div>
         </>
     )

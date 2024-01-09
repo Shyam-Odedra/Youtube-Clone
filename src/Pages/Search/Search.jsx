@@ -4,6 +4,12 @@ import './Search.css';
 import Context from '../../Context/Context';
 import ApiService from '../../Services/ApiService';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../Constants/constants';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { getSearchResults } from '../../Store/reducers/getSearchResults';
 
 // const searchResult = {
 //     "kind": "youtube#searchListResponse",
@@ -151,19 +157,26 @@ import moment from 'moment';
 export default function Search() {
     const [searchResultsData, setSearchResultsData] = useState([]);
     const ApiServices = new ApiService();
+    const searchQuery = useSelector(state => state.youtube.searchQuery);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { globalState, globalDispatch } = useContext(Context);
 
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         // setTrendingVideos(YoutubeVideos);
+    //         await fetchSearchResults();
+    //     }
+    //     fetchData();
+    // }, []);
+
     useEffect(() => {
-        async function fetchData() {
-            // setTrendingVideos(YoutubeVideos);
-            await fetchSearchResults();
-        }
-        fetchData();
+        dispatch(getSearchResults())
     }, []);
 
     const fetchSearchResults = async () => {
         try {
-            const searchResults = await ApiServices.getSearchResults(globalState?.searchQuery, globalState?.searchVideosToken);
+            const searchResults = await ApiServices.getSearchResults(searchQuery, globalState?.searchVideosToken);
             if (searchResults?.nextPageToken) {
                 // globalDispatch({
                 //     searchVideosToken: searchResults?.nextPageToken
@@ -243,23 +256,61 @@ export default function Search() {
         }
     }
 
+    const convertDuration = (duration) => {
+        const regex = /PT(\d+H)?(\d+M)?(\d+S)?/;
+        const matches = duration?.match(regex);
+    
+    
+        const hours = matches?.[1] ? parseInt(matches?.[1]) : 0;
+        const minutes = matches?.[2] ? parseInt(matches?.[2]) : 0;
+        const seconds = matches?.[3] ? parseInt(matches?.[3]) : 0;
+    
+        if (hours === 0) {
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+    
+        if (minutes === 0) {
+            return `00:${seconds.toString().padStart(2, '0')}`;
+        }
+    
+        const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+    
+        const formattedResult = `${m}:${s.toString().padStart(2, '0')}`;
+    
+        return formattedResult;
+    }
+
     const showSearchItems = (item) => {
         if (item?.videoId) {
             return <div className='searchResultVideo mt-4'>
                 <div className="flex justify-start">
                     <div className="img w-[360px] mr-4 flex justify-center ">
-                        <div className="image-container w-full flex justify-center items-center overflow-hidden">
-                            <img className='rounded-xl w-full' src={item?.thumbnailUrl} alt="" />
+                        <div onClick={() => navigate(`${ROUTES.VIDEO}?id=${item?.videoId}`)} className="image-container w-full flex justify-center items-center overflow-hidden">
+                            {/* <img className='rounded-xl w-full' src={item?.thumbnailUrl} alt="" /> */}
+                            <LazyLoadImage
+                                className='rounded-xl w-full'
+                                effect="opacity"
+                                alt={item?.title}
+                                src={item?.thumbnailUrl} />
+                                 <span className="minit">{convertDuration(item?.contentDetails?.duration)}</span>
                         </div>
                     </div>
                     <div className="flex max-w-[720px] flex-col items-start text-start align-middle">
-                        <span className='text-base'>{item?.title}</span>
+                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${item?.videoId}`)} className='text-base'>{item?.title}</span>
                         <div className="user">
                             <span className="views text-[#aaa] text-sm">{`${convertViewCount(item?.statistics?.viewCount)} view`}</span>
                             <span className='text-[#aaa] text-sm'>{moment(item?.publishedAt).fromNow()}</span>
                         </div>
                         <div className="user mt-2">
-                            <img src={item?.channelImage} alt="" />
+                            {/* <img src={item?.channelImage} alt="" /> */}
+                            <LazyLoadImage
+                                effect="opacity"
+                                alt={item?.channelTitle}
+                                src={item?.channelImage} />
                             <span className="text-sm ml-2 text-[#aaa]">{item?.channelTitle}</span>
                         </div>
                         <span className='text-sm mt-2 text-[#aaa]'>{item?.description}</span>
@@ -268,11 +319,17 @@ export default function Search() {
             </div>
         }
         else {
-            return <div className='searchResultChannel mt-2'>
+            return <div className='searchResultChannel my-4'>
                 <div className="flex justify-start">
                     <div className="img w-[360px] mr-4 flex justify-center ">
                         <div className="image-container w-[246px] flex justify-center items-center overflow-hidden">
-                            <img className='h-[136px] rounded-full' src={item?.channelImage} alt="" />
+                            {/* <img className='h-[136px] rounded-full' src={item?.channelImage} alt="" /> */}
+                            <LazyLoadImage
+                                className='h-[136px] rounded-full'
+                                effect="opacity"
+                                alt={item?.title}
+                                src={item?.channelImage} />
+                           
                         </div>
                     </div>
                     <div className="flex max-w-[720px] flex-col justify-start items-start text-start">
@@ -298,14 +355,34 @@ export default function Search() {
         }
     }
 
+    const SearchSkeleton = (item) => {
+        return <div key={item} className='w-full flex justify-start items-start h-full mb-3'>
+            <Skeleton variant="rectangular" className='w-[360px] rounded-xl' animation='wave' sx={{ bgcolor: 'grey.900', width: '100%', height: '180px' }} />
+            <div className="flex w-full flex-1">
+                <Skeleton variant="circular" className='mt-2.5 w-10 mr-3' width={40} height={40} animation='wave' sx={{ bgcolor: 'grey.900' }} />
+                <div className="flex flex-col mt-1 flex-1">
+                    <Skeleton variant="text" sx={{ flex: 1, fontSize: '18px', bgcolor: 'grey.900' }} animation='wave' />
+                    <Skeleton variant="text" sx={{ fontSize: '18px', bgcolor: 'grey.900' }} animation='wave' />
+                </div>
+            </div>
+        </div>
+    }
+
     return (
         <div className='flex flex-col md:flex-row mt-5 w-full'>
             <Sidebar />
             <div className="searchpage">
                 <div className="text-center">
-                    {searchResultsData?.length && <div className='flex flex-col justify-start mt-3'>
+                    {searchResultsData?.length ? <div className='flex flex-col justify-start mt-3'>
                         {searchResultsData.map((searchItem) => showSearchItems(searchItem))}
-                    </div>}
+                    </div> :
+                        ''
+                        // <div className="flex w-full flex-col justify-start mt-3" >
+                        //     {Array.from(new Array(5)).map((item) => (
+                        //         SearchSkeleton(item)
+                        //     ))}
+                        // </div>
+                    }
                 </div>
             </div>
         </div>

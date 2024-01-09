@@ -1777,7 +1777,6 @@ export default function Video() {
             if (queryParams.get('id')) {
                 setVideoId(queryParams.get('id'));
                 await getVideoInformation(queryParams.get('id'));
-                // await getCommentsData(queryParams.get('id'));
                 dispatch(clearVideoComments())
                 dispatch(getVideoComments(queryParams.get('id')))
             }   
@@ -1801,18 +1800,7 @@ export default function Video() {
         }
     };
 
-    const getCommentsData = async (videoId) => {
-        try {
-            const commentsInfo = await ApiServices.getVideoComments(videoId);
-            if (commentsInfo) {
-                setCommentsList(commentsInfo?.items);
-            }
-        } catch (error) {
-            console.log('getChannelInfo : Error => ', error);
-        }
-    }
-
-
+   
     const formatYouTubeSubscribers = (subscribers) => {
         if (subscribers >= 1000000) {
             return (subscribers / 1000000)?.toFixed(1) + "M";
@@ -1915,47 +1903,6 @@ export default function Video() {
         }
     }
 
-    const TradingComponent = (tradingInfoString) => {
-
-        // Convert newlines to HTML line breaks
-        const lines = tradingInfoString.split('\n');
-
-        const renderLine = (line, index) => {
-            // Regular expression to match URLs
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-
-            // Split the line into parts separated by URLs
-            const parts = line.split(urlRegex);
-
-            return (
-                <div key={index}>
-                    {parts.map((part, i) => {
-                        if (part.match(urlRegex)) {
-                            // If the part is a URL, apply the styling
-                            return (
-                                <a
-                                    key={i}
-                                    href={part}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ color: 'blue', textDecoration: 'underline' }}
-                                >
-                                    {part}
-                                </a>
-                            );
-                        } else {
-                            // Otherwise, render the plain text
-                            return <span className='text-sm' key={i}>{part}</span>;
-                        }
-                    })}
-                </div>
-            );
-        };
-
-        // return <div style={{ whiteSpace: 'pre-line' }}>{lines.map(renderLine)}</div>;
-        return <div>{lines.map((line, index) => renderLine(line, index))}</div>;
-    };
-
     return (
         <div className='videoPage '>
             <div className="flex justify-start flex-1 items-start w-full">
@@ -2007,7 +1954,6 @@ export default function Video() {
                                         <div className={'text-[15px] w-full ' + (showMore ? 'line-clamp-none' : 'line-clamp-4')}
                                             dangerouslySetInnerHTML={{ __html: (videoDetails?.snippet?.description)?.replace(/\n/g, '<br />') }} />
                                         : ""}
-                                    {/* {TradingComponent(videoDetails?.snippet?.description)} */}
                                     <span className='text-[15px] mt-1 cursor-pointer' onClick={() => setShowMore(!showMore)}>{showMore ? 'Show less' : 'Show more'}</span>
                                 </div>
                             </div> : ''

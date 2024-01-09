@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getHomePageVideos } from "../reducers/homePageVideos";
 import { getVideoComments } from "../reducers/getVideoComments";
+import { getSearchResults } from "../reducers/getSearchResults";
 
 const initialState = {
     activeSidebarMenu: '',
@@ -9,12 +10,14 @@ const initialState = {
     nextPageToken: '',
     loading: false,
     searchQuery: '',
-    homeCategoryId: '',
+    homeCategoryId: 'all',
     relatedVideos: [],
     relatedVideosNextPageToken : '',
     videoCommentsLoading: false,
     videoComments: [],
-    vidoeCommentsNextPageToken: ''
+    vidoeCommentsNextPageToken: '',
+    userInfo: {},
+    searchResults: [],
 }
 
 export const youtubeSlice = createSlice({
@@ -38,7 +41,19 @@ export const youtubeSlice = createSlice({
         clearRelatedVideos: (state, action) => {
             state.relatedVideos = []
             state.relatedVideosNextPageToken = ''
-        }
+        },
+        setUserInfo: (state, action) => {
+            state.userInfo = action.payload;
+        },
+        clearUserInfo: (state, action) => {
+            state.userInfo = {};
+        },
+        setSearchQuery: (state, action) => {
+            state.searchQuery = action.payload;
+        },
+        clearSearchQuery: (state, action) => {
+            state.searchQuery = '';
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getHomePageVideos.pending, (state, action) => {
@@ -57,8 +72,11 @@ export const youtubeSlice = createSlice({
             state.vidoeCommentsNextPageToken = action.payload.nextPageToken
             state.videoCommentsLoading = false;
         })
+        builder.addCase(getSearchResults.fulfilled, (state, action) => {
+            state.searchResults = action.payload.searchResults;
+        })
     }
 })
 
-export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos } = youtubeSlice.actions;
+export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos, clearUserInfo, setUserInfo, setSearchQuery, clearSearchQuery } = youtubeSlice.actions;
 export default youtubeSlice.reducer;

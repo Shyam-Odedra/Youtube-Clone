@@ -16,10 +16,6 @@
     max-width: 360px;
 }
 
-.searchResultVideo:first-child{
-    border-top: 2px solid red ;
-}
-
 .views::after{
     content: "•";
     margin: 0 5px;
