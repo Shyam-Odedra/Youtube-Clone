@@ -54,6 +54,9 @@ export const youtubeSlice = createSlice({
         clearSearchQuery: (state, action) => {
             state.searchQuery = '';
         },
+        clearSearchVideos: (state, action) => {
+            state.searchResults = [];
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getHomePageVideos.pending, (state, action) => {
@@ -78,5 +81,5 @@ export const youtubeSlice = createSlice({
     }
 })
 
-export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos, clearUserInfo, setUserInfo, setSearchQuery, clearSearchQuery } = youtubeSlice.actions;
+export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos, clearUserInfo, setUserInfo, setSearchQuery, clearSearchQuery, clearSearchVideos } = youtubeSlice.actions;
 export default youtubeSlice.reducer;

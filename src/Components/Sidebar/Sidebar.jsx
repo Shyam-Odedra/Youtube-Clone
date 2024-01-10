@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Context from '../../Context/Context';
 import { ROUTES } from '../../Constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCategory } from '../../Store/features/youtubeSlice';
+import { changeCategory, clearSearchVideos } from '../../Store/features/youtubeSlice';
 // import Context from '../../GlobalState/Context';
 
 export default function Sidebar() {
@@ -37,6 +37,7 @@ export default function Sidebar() {
         });
         setactiveSidebarMenu(menuItem?.title);
         dispatch(changeCategory('all'))
+        dispatch(clearSearchVideos());
         navigate(menuItem?.route);
     }
 
@@ -48,6 +49,7 @@ export default function Sidebar() {
             homePageVideos: []
         });
         dispatch(changeCategory(menuItem?.apicategory))
+        dispatch(clearSearchVideos());
         setactiveSidebarMenu(menuItem?.title);
         navigate(menuItem?.route);
     }

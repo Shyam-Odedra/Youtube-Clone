@@ -39,8 +39,8 @@ export default class ApiService {
         }
     }
 
-    async getSearchResults(query, nextPageToken) {
-        const URL = `${BASE_URL}/search?q=${query}&part=snippet&maxResults=25&pageToken=${nextPageToken}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+    async getSearchResults(query) {
+        const URL = `${BASE_URL}/search?q=${query}&part=snippet&maxResults=25&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
         try {
             const response = await fetch(URL);
 
