@@ -1,23 +1,56 @@
-.channelDetails{
+.channelDetails {
     position: relative;
     display: block;
     left: 240px;
     width: calc(100% - 240px);
     display: flex;
     justify-content: start;
-    padding: 0 90px;
-    /* max-width: 1096px; */
-    /* margin: auto; */
-    /* flex: auto; */
-    /* flex: 1; */
+    color: white;
 }
 
-.channelBanner{
-    width: 100%;
+.mainContent {
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    
+    margin: 0 calc(50% - 642px);
 }
 
-.channelInfo{
+.channelBanner {
+    width: 100%;
+    height: 100%;
+    height: 208px;
+}
 
+.channelInfo {}
+
+.tabs {
+    margin: 0 auto;
+    width: 70%;
+    text-align: center;
+    margin-top: 15vh;
+}
+
+img {
+    width: 300px;
+}
+
+.tab-buttons {
+    margin-bottom: 50px;
+    border-bottom: 0.5px solid rgba(241, 241, 241,0.3);
+}
+
+button {
+    margin-right: 5px;
+    font-size: 17px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px ;
+    cursor: pointer;
+    transition: all ease-in-out .2s;
+    border-bottom: 2px solid transparent;
+}
+
+.active {
+    border-bottom: 2px solid white;
 }
