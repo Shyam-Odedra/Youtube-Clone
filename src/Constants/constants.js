@@ -1,7 +1,8 @@
 export const ROUTES = {
     HOME: "/",
     SEARCH: "/search",
-    VIDEO: "/video"
+    VIDEO: "/video",
+    CHANNEL: "/channel"
 }
 
 export const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';

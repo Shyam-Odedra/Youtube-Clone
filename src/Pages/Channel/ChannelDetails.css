@@ -1,0 +1,23 @@
+.channelDetails{
+    position: relative;
+    display: block;
+    left: 240px;
+    width: calc(100% - 240px);
+    display: flex;
+    justify-content: start;
+    padding: 0 90px;
+    /* max-width: 1096px; */
+    /* margin: auto; */
+    /* flex: auto; */
+    /* flex: 1; */
+}
+
+.channelBanner{
+    width: 100%;
+    flex: 1;
+    
+}
+
+.channelInfo{
+
+}

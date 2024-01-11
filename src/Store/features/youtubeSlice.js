@@ -18,6 +18,7 @@ const initialState = {
     vidoeCommentsNextPageToken: '',
     userInfo: {},
     searchResults: [],
+    channelDetails: []
 }
 
 export const youtubeSlice = createSlice({
