@@ -35,7 +35,7 @@ img {
 }
 
 .tab-buttons {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     border-bottom: 0.5px solid rgba(241, 241, 241,0.3);
 }
 
@@ -51,6 +51,89 @@ button {
     border-bottom: 2px solid transparent;
 }
 
+button:hover{
+    border-bottom: 2px solid rgba(255, 255, 255, 0.577);
+}
+
 .active {
     border-bottom: 2px solid white;
+}
+
+.videoslist{
+    margin: 0;
+    display: grid;
+    column-gap: 20px;
+    row-gap: 25px;
+}
+
+.videos .channelVideo{
+    cursor: pointer;
+}
+
+.channelVideo .thumbnail{
+    width: 100%;
+    position: relative;
+}
+
+.channelVideo .thumbnail img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.channelVideo .thumbnail .minit{
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    font-size: 12px;
+    width: auto;
+    /* height: 20px; */
+    padding: 2px 4px !important;
+    border-radius: 3px;
+    color: white;
+    background-color: theme('colors.themeBlack');
+}
+
+.channelVideo .video-info{
+    font-size: 15px;
+    display: flex;
+    margin: 10px 0;
+}
+
+.channelVideo .video-info .user img{
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.channelVideo .video-info .text{
+    display: flex;
+    flex-direction: column;
+}
+
+.channelVideo .video-info .text .title{
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.channelVideo .video-info .text .views::after{
+    content: "•";
+    margin: 0 5px;
+}
+
+.playlistCount{
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    font-size: 12px;
+    width: auto;
+    /* height: 20px; */
+    padding: 2px 4px !important;
+    border-radius: 3px;
+    color: white;
+    background-color: rgba(40, 33, 22, 0.8);
 }

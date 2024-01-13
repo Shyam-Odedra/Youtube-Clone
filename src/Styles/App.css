@@ -8,3 +8,14 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: theme('colors.themeBlack');
 }
+
+body::-webkit-scrollbar {
+    width: 15px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(229, 216, 216);
+    border: 4px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;
+}

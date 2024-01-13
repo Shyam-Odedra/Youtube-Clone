@@ -4,6 +4,11 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import { useSelector } from 'react-redux';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { Tabs, Tab } from './Tabs/Tabs';
+import ChannelVideos from './Videos/ChannelVideos';
+import Playlists from './Playlists/Playlists';
+import Community from './Community/Community';
+import About from './About/About';
+import ChannelHomePage from './ChannelHomePage/ChannelHomePage';
 // import { Tabs } from './Tabs/Tabs';
 
 const channelDetails = {
@@ -16,9 +21,122 @@ const channelDetails = {
     videoCount: 950,
     channelBanner: "https://yt3.googleusercontent.com/ZX4FPqyBCJc0ektafXZvV9tShLRUovd3_oUWXzZDC-70BLB6FsVHtzGDsKIed9A596O_dWNrRg=w2276-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
     videos: [
-
+        {
+            videoId: "Tv4WWjvh5OI",
+            title: "Bollywood - Maut ko Takk se chuu ke wapas aa gaye",
+            thumbnailUrl: "https://i.ytimg.com/vi/Tv4WWjvh5OI/mqdefault.jpg",
+            videoViews: "251k",
+            publishedTime: "1 day ago",
+            videoDuration: "8:06"
+        },
+        {
+            videoId: "dkh6EaaT8Fs",
+            title: "God Level Trailers - Good, Bad aur Ghatiya",
+            thumbnailUrl: "https://i.ytimg.com/vi/dkh6EaaT8Fs/mqdefault.jpg",
+            videoViews: "400k",
+            publishedTime: "3 days ago",
+            videoDuration: "6:49"
+        },
+        {
+            videoId: "x7LYlVv13AM",
+            title: "100 Movies You have to watch before you DIE",
+            thumbnailUrl: "https://i.ytimg.com/vi/x7LYlVv13AM/mqdefault.jpg",
+            videoViews: "328k",
+            publishedTime: "8 days ago",
+            videoDuration: "7:03"
+        },
+        {
+            videoId: "CBlqLq_lAF4",
+            title: "FINAL winners kon?? Bnftv Awards 2023",
+            thumbnailUrl: "https://i.ytimg.com/vi/CBlqLq_lAF4/mqdefault.jpg",
+            videoViews: "542k",
+            publishedTime: "10 days ago",
+            videoDuration: "18:11"
+        },
+        {
+            videoId: "sndgQdL9fwU",
+            title: "9 Best Hollywood Movies of 2023 🥵",
+            thumbnailUrl: "https://i.ytimg.com/vi/sndgQdL9fwU/mqdefault.jpg",
+            videoViews: "295k",
+            publishedTime: "12 days ago",
+            videoDuration: "6:49"
+        }
     ],
-    playlists: []
+    popularVideos: [
+        {
+            videoId: "eXMyAvA0654",
+            title: "17 - WTF moments in Adipurush",
+            thumbnailUrl: "https://i.ytimg.com/vi/eXMyAvA0654/mqdefault.jpg",
+            videoViews: "1.5M",
+            publishedTime: "6 months ago",
+            videoDuration: "8:06"
+        },
+        {
+            videoId: "k4VrKX8KBIw",
+            title: "ADIPURUSH movie Review",
+            thumbnailUrl: "https://i.ytimg.com/vi/k4VrKX8KBIw/mqdefault.jpg",
+            videoViews: "1.1M",
+            publishedTime: "3 months ago",
+            videoDuration: "6:49"
+        },
+        {
+            videoId: "EG5Vbqo3m70",
+            title: "Dunki movie review",
+            thumbnailUrl: "https://i.ytimg.com/vi/EG5Vbqo3m70/mqdefault.jpg",
+            videoViews: "828k",
+            publishedTime: "10 days ago",
+            videoDuration: "7:03"
+        },
+        {
+            videoId: "d3-YjWrVLB8",
+            title: "Brahmastra Movie Review",
+            thumbnailUrl: "https://i.ytimg.com/vi/d3-YjWrVLB8/mqdefault.jpg",
+            videoViews: "542k",
+            publishedTime: "20 days ago",
+            videoDuration: "18:11"
+        },
+        {
+            videoId: "CBlqLq_lAF4",
+            title: "FINAL winners kon?? Bnftv Awards 2023",
+            thumbnailUrl: "https://i.ytimg.com/vi/CBlqLq_lAF4/mqdefault.jpg",
+            videoViews: "542k",
+            publishedTime: "10 days ago",
+            videoDuration: "18:11"
+        },
+    ],
+    communityPosts: [],
+    featureChannels: [
+        {
+            channelId: "UCKZbgzsJ_XsgGevLAKI1DwA",
+            channelImage: "https://yt3.ggpht.com/wYx5tWTzgpRIOLEWFIIsTrVqgquAo4O8bVxZIz9q3DmMflMBP2zdRp7jRYDzuCAeYlzENbWTEg=s240-c-k-c0x00ffffff-no-rj",
+            title: "Anime Cloud",
+            subscribers: "375K"
+        },
+        {
+            channelId: "UC9CROGyC9hgIB1mnBuMpeoQ",
+            channelImage: "https://yt3.ggpht.com/N_x8PwnZO6O5Vq0eTl9XEfN9zKmZKqjap4_lz1zNJjTGFgqiBHMw10H9Zx12eoaNqIpPISngmis=s240-c-k-c0x00ffffff-no-rj",
+            title: "Men of Culter",
+            subscribers: "284K"
+        },
+        {
+            channelId: "UCGpQB0iKl2lQHI1I2Sqp7JA",
+            channelImage: "https://yt3.ggpht.com/0GZPKHlGWFIzTRcC0R154-YHTXbr6ypcM2vPgKWPJRtaZw5zbFe7dQsd6KgkWRhMrmLHbAtAXPs=s240-c-k-c0x00ffffff-no-rj",
+            title: "Tevar",
+            subscribers: "117k"
+        },
+        {
+            channelId: "UCy1meo6FA5KQbePRqPk-Pzg",
+            channelImage: "https://yt3.ggpht.com/225rBX_diqm1lJdTwqVETswg8RM9uAQZa73RV-kxB7TrsJ90xBGUB6yQ74Zy-8fdqKWCZs2r=s240-c-k-c0x00ffffff-no-rj",
+            title: "Bnftv shorts",
+            subscribers: "189k"
+        },
+        {
+            channelId: "UCV7Cb-hykXoqKeWF4mPDS2A",
+            channelImage: "https://yt3.ggpht.com/ihmfuRv5EsMAP0fyhzZclpxQmOy8G84Y-xBM2oArVcKjZ8bdcSkD6hFSmWxmYFkfOrpy2NYsBK4=s240-c-k-c0x00ffffff-no-rj",
+            title: "Noobgamer69",
+            subscribers: "145k"
+        }
+    ]
 }
 
 export default function ChannelDetails() {
@@ -66,35 +184,19 @@ export default function ChannelDetails() {
                     <div className='w-full mt-5'>
                         <Tabs>
                             <Tab label="Home">
-                                <div>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0xIAJciTxzjZZM-viJfHk_Ezlv0nn8fft3ORQ9UkoP2mPd5pm" />
-                                    <p>Tab 1 content</p>
-                                </div>
+                                <ChannelHomePage videos={channelDetails?.videos} popularVideos={channelDetails?.popularVideos} featureChannels={channelDetails?.featureChannels}/>
                             </Tab>
                             <Tab label="Videos">
-                                <div>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2E3SrDqYWF9J_TDWNzjZkwJOAGxkLJVZPvUly7SqUL9WqLqEw" />
-                                    <p>Tab 2 content</p>
-                                </div>
+                               <ChannelVideos videos={[...channelDetails?.videos, ...channelDetails?.popularVideos]}/>
                             </Tab>
                             <Tab label="Playlists">
-                                <div>
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB7Y713wstirF-PvKJa6OioS83ozc-BeFAzjjyndv58ZnfyaZK0g" />
-                                    <p>Tab 3 content</p>
-                                </div>
+                               <Playlists />
                             </Tab>
                             <Tab label="Community">
-                                <div>
-                                    <img src="http://choseneye.org/image/cache/catalog/SERVICES4-600x600.png" />
-
-                                    <p>Tab 4 content</p>
-                                </div>
+                               <Community />
                             </Tab>
                             <Tab label="About">
-                                <div>
-                                    <img src="https://iconcept.com.my/wp-content/uploads/2018/10/iStock-956508212-600x600.jpg" />
-                                    <p>Tab 5 content</p>
-                                </div>
+                               <About />
                             </Tab>
                         </Tabs>
 
