@@ -104,7 +104,128 @@ const channelDetails = {
             videoDuration: "18:11"
         },
     ],
-    communityPosts: [],
+    communityPosts: [
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "New videos thoda delay honge. Merry Christmas, Hanuman, captain Miller ke..... Not feeling well",
+            publishedTime: "23 hours ago",
+            likeCount: "9.1k",
+            replyCount: 212,
+            attachments: []
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "Popcorn ke saath ready rehna... aaj around 8 PM.",
+            publishedTime: "10 days ago",
+            likeCount: "17k",
+            replyCount: 377,
+            attachments: []
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "FINAL Voting is LIVE NOW 🔥🔥 BNFTV AWARDS 2023.\njaao apne man ki iccha puri karlo...\nbus ek choti si request POPULARITY ke basis pe nahi Quality ke basis pe vote dena & friends ke saath share karna\n\nFinal voting link - https://forms.gle/aUfv3whw98LLKo3E6",
+            publishedTime: "13 days ago",
+            likeCount: "9.8k",
+            replyCount: 600,
+            attachments: []
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "BNFTV AWARDS 2023 is here!! (with a Brand new category ahm.! \"Most toxic Fandom\")\nNominations are LIVE until ❌ 29 December 3 PM ❌\nOnly One response per person.\nRead the rules clearly.\nNominations Link 👇👇\nhttps://forms.gle/KRJLyZbcmJNPfxW7A",
+            publishedTime: "2 weeks ago",
+            likeCount: "9.8k",
+            replyCount: 612,
+            attachments: []
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "LATEST video with NETFLIX is live Now…. MAST Watch Web series wo bhi Hindi me 👇👇",
+            publishedTime: "1 month ago",
+            likeCount: "2k",
+            replyCount: 60,
+            attachments: {
+                type: "video",
+                videoId: "jKWabQZHyuw",
+                title: "@BnfTV Top  7 HINDI DUBBED Web Series On Netflix | Netflix India",
+                description: "BnFTV recommends 7 hindi dubbed web series that give you an edge-of-the-seat watching experience!\n\nOne Piece: https://www.netflix.com/watch/80218003\nOzark: https://www.netflix.com/watch/80117807...",
+                channelTitle: "Netflix India",
+                thumbnailUrl: "https://i.ytimg.com/vi/jKWabQZHyuw/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCjWBxd0NYPKWm25fhlzdcMPkWkxQ",
+                channelId: "UCZSNzBgFub_WWil6TOTYwAg",
+                videoViews: "322k",
+                videoDuration: "7:57",
+                publishedTime: "1 month ago"
+            }
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "On a scale of 1 to 10 how excited are you for #Animal ?",
+            publishedTime: "1 month ago",
+            likeCount: "24k",
+            replyCount: "2.6k",
+            attachments: []
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "10 mazedar mystery thriller ki list… cult classics se leke underrated & some MUST watch 👇👇 check out mast watch on Netflix India",
+            publishedTime: "2 month ago",
+            likeCount: "1.6k",
+            replyCount: "55",
+            attachments: {
+                type: "video",
+                videoId: "JGFdcZCMdlU",
+                title: "@BnfTV  Top 10 BEST MYSTERY THRILLERS On Netflix",
+                description: "Which ones have you seen? Let us know in the comments. All the films are streaming on Netflix. @BnfTV \n\nJaane Jaan: https://www.netflix.com/watch/81586376\n\nGone Girl: https://www.netflix.com/watch/..",
+                channelTitle: "Netflix India",
+                thumbnailUrl: "https://i.ytimg.com/vi/JGFdcZCMdlU/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAnOliwWqeKWVWx2eOp_kiB--rMcA",
+                channelId: "UCZSNzBgFub_WWil6TOTYwAg",
+                videoViews: "430k",
+                videoDuration: "6:5",
+                publishedTime: "2 month ago"
+            }
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "5 years ago we started this journey. 900 videos banaye (sirf is channel pe!!). senti nahi hona chahta but isne meri aur MERE FAMILY ki zindagi kaise badal ke rakh di.. believe nahi hota. jo bhi hai.. tumhare karan hai... so THANK YOU for everything 🫶🏻",
+            publishedTime: "3 month ago",
+            likeCount: "37k",
+            replyCount: "1.3k",
+            attachments: {
+                type: "image",
+                imageUrl: "https://yt3.ggpht.com/gOOz287MkZGbEXfIwekUQT3eRkXAwwP7BwxY-V7FTJ9BNqf-xaajwSZSs4wvj1X-CnJonvZDikvozpA=s640-c-fcrop64=1,00000000ffffffff-nd-v1"
+
+            }
+        },
+        {
+            postId: "Ugkx4EUga78J1IXkPjuRUq6eda9MVmsdBfkn",
+            channelName: "BnfTV",
+            channelImage: "https://yt3.googleusercontent.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s76-c-k-c0x00ffffff-no-rj-mo",
+            content: "Raksha Bandhan ka Gift meri taraf se - ONLY AVAILABLE UNTIL - 31st August 2023. Code use karo RAKHI40 and get FLAT 40% off. Lifetime me jitne baar chaiye utni baar course dekh sakte ho (jab tak tum raho ya Brand rahe😉) badi mushkil se Platform ko manaya hai Discount ke liye - taki mummy se jhoot bol ke paise na lene pade - HURRY now 👉 https://bnftv.graphy.com/single-check...",
+            publishedTime: "4 month ago",
+            likeCount: "6.8k",
+            replyCount: "458",
+            attachments: {
+                type: "image",
+                imageUrl: "https://yt3.ggpht.com/gVqlficIEKMhPFc_Ad7S57aBxIumcYu8Fnw0URrptidAwx_V7y2KZVBazjiziFm5z0SDCSDeQSdw=s640-c-fcrop64=1,0eab0000f154ffff-nd-v1"
+
+            }
+        },
+    ],
     featureChannels: [
         {
             channelId: "UCKZbgzsJ_XsgGevLAKI1DwA",
@@ -184,19 +305,19 @@ export default function ChannelDetails() {
                     <div className='w-full mt-5'>
                         <Tabs>
                             <Tab label="Home">
-                                <ChannelHomePage videos={channelDetails?.videos} popularVideos={channelDetails?.popularVideos} featureChannels={channelDetails?.featureChannels}/>
+                                <ChannelHomePage videos={channelDetails?.videos} popularVideos={channelDetails?.popularVideos} featureChannels={channelDetails?.featureChannels} />
                             </Tab>
                             <Tab label="Videos">
-                               <ChannelVideos videos={[...channelDetails?.videos, ...channelDetails?.popularVideos]}/>
+                                <ChannelVideos videos={[...channelDetails?.videos, ...channelDetails?.popularVideos]} />
                             </Tab>
                             <Tab label="Playlists">
-                               <Playlists />
+                                <Playlists />
                             </Tab>
                             <Tab label="Community">
-                               <Community />
+                                <Community communityPosts={channelDetails?.communityPosts} />
                             </Tab>
                             <Tab label="About">
-                               <About />
+                                <About />
                             </Tab>
                         </Tabs>
 

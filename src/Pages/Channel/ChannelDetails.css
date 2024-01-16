@@ -137,3 +137,20 @@ button:hover{
     color: white;
     background-color: rgba(40, 33, 22, 0.8);
 }
+
+.communityVideo .minit{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 12px;
+    width: auto;
+    /* height: 20px; */
+    padding: 2px 4px !important;
+    border-radius: 3px;
+    color: white;
+    background-color: theme('colors.themeBlack');
+}
+
+.postItem{
+    padding: 16px 16px 8px 16px;
+}

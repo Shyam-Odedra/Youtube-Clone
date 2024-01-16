@@ -1,15 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import ApiService from "../../Services/ApiService";
-import { parseRelatedVideos } from "../../utils/parseRelatedVideos";
+import { parseChannelDetails } from "../../utils/parseChannelDetails";
 
 export const getChannelDetails = createAsyncThunk(
-    'youtube/getChannelDetails',
-    async (videoId ,{ getState }) => {
+    'youtube/getChannelDetail',
+    async (channelId ,{ getState }) => {
         const ApiServices = new ApiService();
-        const { youtube: { relatedVideosNextPageToken, relatedVideos } }  = getState();
-
-        const { items, nextPageToken } =await ApiServices.getSearchResults(videoId, relatedVideosNextPageToken);
-        const parsedVideoData = await parseRelatedVideos(items);
-        return { parsedData: [...relatedVideos, ...parsedVideoData], nextPageToken };
+        const { items: channelInfo } = await ApiServices.getVideoChannelInfo(channelId);
+        
+        const parsedChannelDetails = await parseChannelDetails(channelInfo);
+        return { channelDetails: parsedChannelDetails };
     }
 );

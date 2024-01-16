@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getHomePageVideos } from "../reducers/homePageVideos";
 import { getVideoComments } from "../reducers/getVideoComments";
 import { getSearchResults } from "../reducers/getSearchResults";
+import { getChannelDetails } from "../reducers/getChannelDetails";
 
 const initialState = {
     activeSidebarMenu: '',
@@ -12,13 +13,13 @@ const initialState = {
     searchQuery: '',
     homeCategoryId: 'all',
     relatedVideos: [],
-    relatedVideosNextPageToken : '',
+    relatedVideosNextPageToken: '',
     videoCommentsLoading: false,
     videoComments: [],
     vidoeCommentsNextPageToken: '',
     userInfo: {},
     searchResults: [],
-    channelDetails: []
+    channelDetails: {},
 }
 
 export const youtubeSlice = createSlice({
@@ -58,6 +59,9 @@ export const youtubeSlice = createSlice({
         clearSearchVideos: (state, action) => {
             state.searchResults = [];
         },
+        clearChannelDetails: (state, action) => {
+            state.channelDetails = {};
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getHomePageVideos.pending, (state, action) => {
@@ -79,8 +83,11 @@ export const youtubeSlice = createSlice({
         builder.addCase(getSearchResults.fulfilled, (state, action) => {
             state.searchResults = action.payload.searchResults;
         })
+        builder.addCase(getChannelDetails.fulfilled, (state, action) => {
+            state.channelDetails = action.payload.channelDetails;
+        })
     }
 })
 
-export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos, clearUserInfo, setUserInfo, setSearchQuery, clearSearchQuery, clearSearchVideos } = youtubeSlice.actions;
+export const { changeCategory, updateLoading, clearHomeVideos, clearVideoComments, clearRelatedVideos, clearUserInfo, setUserInfo, setSearchQuery, clearSearchQuery, clearSearchVideos, clearChannelDetails } = youtubeSlice.actions;
 export default youtubeSlice.reducer;
