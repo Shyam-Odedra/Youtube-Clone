@@ -1,19 +1,39 @@
 import moment from 'moment';
+import ApiService from '../Services/ApiService';
+import { formatYouTubeSubscribers } from '.';
 
 export const parseChannelDetails = async (channelInfo) => {
+    const ApiServices = new ApiService();
     try {
         const channelData = channelInfo?.[0];
+        const featureChannels = [];
+
+        const { items: channelSections } = await ApiServices.getFeatureChannels(channelData?.id);
+        const multipleChannels = findMultipleChannels(channelSections);
+        const { items: multipleChannelsData } = await ApiServices.getVideoChannelInfo(multipleChannels.join(","));
+        if (multipleChannelsData) {
+            multipleChannelsData.forEach((channelItem) => {
+                featureChannels.push({
+                    channelId: channelItem?.id,
+                    channelImage: channelItem?.snippet?.thumbnails?.medium?.url || channelItem?.snippet?.thumbnails?.high?.url,
+                    title: channelItem?.snippet?.title,
+                    subscribers: formatYouTubeSubscribers(channelItem?.statistics?.subscriberCount)
+                })
+            });
+        }
 
 
 
         const parsedChannelDetails = {
             channelId: channelData?.id,
-            channelName: "BnfTV",
-            channelImage: "https://yt3.ggpht.com/7oUYOkSQuvixFZonWiR_AC7uKfMyoqRCnSBpmH-V_KUry2QgeSK2zHUDlYoLtG9xfTR-2e_NJA=s240-c-k-c0x00ffffff-no-rj",
-            description: "No baat, only bakwaas 🙂 aisa kisi ne bola to paap lagega\n\nIndia me logo ko kya mangta hai?? Entertainment, Entertainment, Entertainment \naur is channel pe tumko milega kuch faltu ka gyan, thoda sa maza aur kuch bach gaya to thoda sa entertainment.\nTo ab tum bologe ki ye dono line to rhyme nahi karte??\nTo mere bhai, koi rule thodi hai is duniya mai sub kuch match kare 😂\n\nFor business enquiry: business.bnftv@gmail.com",
-            subscribers: "1.17M",
-            username: "@Bnftv",
-            videoCount: 950,
+            channelName: channelData?.snippet?.title,
+            channelImage: channelData?.snippet?.thumbnails?.medium?.url || channelData?.snippet?.thumbnails?.high?.url,
+            description: channelData?.snippet?.description,
+            subscribers: formatYouTubeSubscribers(channelData?.statistics?.subscriberCount),
+            username: channelData?.snippet?.customUrl,
+            totalViews: channelData?.statistics?.viewCount,
+            videoCount: channelData?.statistics?.videoCount,
+            joinedDate: 'Oct 28, 2016',
             channelBanner: "https://yt3.googleusercontent.com/ZX4FPqyBCJc0ektafXZvV9tShLRUovd3_oUWXzZDC-70BLB6FsVHtzGDsKIed9A596O_dWNrRg=w2276-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
             videos: [
                 {
@@ -203,7 +223,7 @@ export const parseChannelDetails = async (channelInfo) => {
                     attachments: {
                         type: "image",
                         imageUrl: "https://yt3.ggpht.com/gOOz287MkZGbEXfIwekUQT3eRkXAwwP7BwxY-V7FTJ9BNqf-xaajwSZSs4wvj1X-CnJonvZDikvozpA=s640-c-fcrop64=1,00000000ffffffff-nd-v1"
-        
+
                     }
                 },
                 {
@@ -217,47 +237,26 @@ export const parseChannelDetails = async (channelInfo) => {
                     attachments: {
                         type: "image",
                         imageUrl: "https://yt3.ggpht.com/gVqlficIEKMhPFc_Ad7S57aBxIumcYu8Fnw0URrptidAwx_V7y2KZVBazjiziFm5z0SDCSDeQSdw=s640-c-fcrop64=1,0eab0000f154ffff-nd-v1"
-        
+
                     }
                 },
             ],
-            featureChannels: [
-                {
-                    channelId: "UCKZbgzsJ_XsgGevLAKI1DwA",
-                    channelImage: "https://yt3.ggpht.com/wYx5tWTzgpRIOLEWFIIsTrVqgquAo4O8bVxZIz9q3DmMflMBP2zdRp7jRYDzuCAeYlzENbWTEg=s240-c-k-c0x00ffffff-no-rj",
-                    title: "Anime Cloud",
-                    subscribers: "375K"
-                },
-                {
-                    channelId: "UC9CROGyC9hgIB1mnBuMpeoQ",
-                    channelImage: "https://yt3.ggpht.com/N_x8PwnZO6O5Vq0eTl9XEfN9zKmZKqjap4_lz1zNJjTGFgqiBHMw10H9Zx12eoaNqIpPISngmis=s240-c-k-c0x00ffffff-no-rj",
-                    title: "Men of Culter",
-                    subscribers: "284K"
-                },
-                {
-                    channelId: "UCGpQB0iKl2lQHI1I2Sqp7JA",
-                    channelImage: "https://yt3.ggpht.com/0GZPKHlGWFIzTRcC0R154-YHTXbr6ypcM2vPgKWPJRtaZw5zbFe7dQsd6KgkWRhMrmLHbAtAXPs=s240-c-k-c0x00ffffff-no-rj",
-                    title: "Tevar",
-                    subscribers: "117k"
-                },
-                {
-                    channelId: "UCy1meo6FA5KQbePRqPk-Pzg",
-                    channelImage: "https://yt3.ggpht.com/225rBX_diqm1lJdTwqVETswg8RM9uAQZa73RV-kxB7TrsJ90xBGUB6yQ74Zy-8fdqKWCZs2r=s240-c-k-c0x00ffffff-no-rj",
-                    title: "Bnftv shorts",
-                    subscribers: "189k"
-                },
-                {
-                    channelId: "UCV7Cb-hykXoqKeWF4mPDS2A",
-                    channelImage: "https://yt3.ggpht.com/ihmfuRv5EsMAP0fyhzZclpxQmOy8G84Y-xBM2oArVcKjZ8bdcSkD6hFSmWxmYFkfOrpy2NYsBK4=s240-c-k-c0x00ffffff-no-rj",
-                    title: "Noobgamer69",
-                    subscribers: "145k"
-                }
-            ]
+            featureChannels
         }
-        
-       
+
+
         return parsedChannelDetails;
     } catch (error) {
         console.log(error);
     }
 };
+
+function findMultipleChannels(items) {
+    for (const item of items) {
+        if (item?.kind === "youtube#channelSection" && item?.snippet?.type === "multiplechannels") {
+            return item?.contentDetails;
+        }
+    }
+    // Return null if no "multiplechannels" type is found
+    return null;
+}

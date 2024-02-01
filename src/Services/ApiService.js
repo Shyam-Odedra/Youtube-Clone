@@ -86,5 +86,21 @@ export default class ApiService {
             throw error;
         }
     }
+
+    async getFeatureChannels(channelId) {
+        const URL = `${BASE_URL}/channelSections?part=snippet,contentDetails&channelId=${channelId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+        try {
+            const response = await fetch(URL); 
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('getFeatureChannels - Error :', error.message);
+            throw error;
+        }
+    }
     
 }

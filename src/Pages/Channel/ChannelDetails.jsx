@@ -18,7 +18,9 @@ const channelDetails = {
     description: "No baat, only bakwaas 🙂 aisa kisi ne bola to paap lagega\n\nIndia me logo ko kya mangta hai?? Entertainment, Entertainment, Entertainment \naur is channel pe tumko milega kuch faltu ka gyan, thoda sa maza aur kuch bach gaya to thoda sa entertainment.\nTo ab tum bologe ki ye dono line to rhyme nahi karte??\nTo mere bhai, koi rule thodi hai is duniya mai sub kuch match kare 😂\n\nFor business enquiry: business.bnftv@gmail.com",
     subscribers: "1.17M",
     username: "@Bnftv",
+    totalViews: 349293619,
     videoCount: 950,
+    joinedDate: 'Oct 28, 2016',
     channelBanner: "https://yt3.googleusercontent.com/ZX4FPqyBCJc0ektafXZvV9tShLRUovd3_oUWXzZDC-70BLB6FsVHtzGDsKIed9A596O_dWNrRg=w2276-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
     videos: [
         {
@@ -317,7 +319,7 @@ export default function ChannelDetails() {
                                 <Community communityPosts={channelDetails?.communityPosts} />
                             </Tab>
                             <Tab label="About">
-                                <About />
+                                <About channelInfo={channelDetails}/>
                             </Tab>
                         </Tabs>
 
