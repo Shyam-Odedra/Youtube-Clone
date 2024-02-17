@@ -14,28 +14,28 @@ export const convertDuration = (duration) => {
     const regex = /PT(\d+H)?(\d+M)?(\d+S)?/;
     const matches = duration?.match(regex);
 
+    const hours = matches && matches[1] ? parseInt(matches[1]) : 0;
+    const minutes = matches && matches[2] ? parseInt(matches[2]) : 0;
+    const seconds = matches && matches[3] ? parseInt(matches[3]) : 0;
 
-    const hours = matches?.[1] ? parseInt(matches?.[1]) : 0;
-    const minutes = matches?.[2] ? parseInt(matches?.[2]) : 0;
-    const seconds = matches?.[3] ? parseInt(matches?.[3]) : 0;
+    const totalMinutes = hours * 60 + minutes;
 
-    if (hours === 0) {
-        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    if (totalMinutes < 60) {
+        const formattedMinutes = totalMinutes.toString().padStart(2, '0');
+        const formattedSeconds = seconds.toString().padStart(2, '0');
+        return `"${formattedMinutes}:${formattedSeconds}"`;
     }
 
-    if (minutes === 0) {
-        return `00:${seconds.toString().padStart(2, '0')}`;
-    }
+    const h = Math.floor(totalMinutes / 60);
+    const m = totalMinutes % 60;
+    const s = seconds;
 
-    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    const formattedHours = h.toString().padStart(2, '0');
+    const formattedMinutes = m.toString().padStart(2, '0');
+    const formattedSeconds = s.toString().padStart(2, '0');
 
-    const h = Math.floor(totalSeconds / 3600);
-    const m = Math.floor((totalSeconds % 3600) / 60);
-    const s = totalSeconds % 60;
+    return `"${formattedHours}:${formattedMinutes}:${formattedSeconds}"`;
 
-    const formattedResult = `${m}:${s.toString().padStart(2, '0')}`;
-
-    return formattedResult;
 }
 
 export const formatYouTubeSubscribers = (subscribers) => {

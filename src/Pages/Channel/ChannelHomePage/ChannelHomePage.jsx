@@ -6,7 +6,7 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 export default function ChannelHomePage({ videos, popularVideos, featureChannels }) {
     const navigate = useNavigate();
-    const [subscribeStatus, setSubscribeStatus] = useState(Array(featureChannels.length).fill(false));
+    const [subscribeStatus, setSubscribeStatus] = useState(Array(featureChannels?.length).fill(false));
 
     const handleSubscribeToggle = (index) => {
         const newSubscribeStatus = [...subscribeStatus];
@@ -16,63 +16,68 @@ export default function ChannelHomePage({ videos, popularVideos, featureChannels
 
     return (
         <div className='w-full'>
-            <div className='w-full'>
-                <h3 className='text-[20px] font-medium'>Popular Videos</h3>
-                <div className="flex mt-4 w-full justify-start items-center">
-                    <div className="videoslist w-full grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
-                        {popularVideos.map((videoItem) => (
-                            <div key={videoItem?.videoId} className="channelVideo">
-                                <div className="thumbnail cursor-pointer">
-                                    <LazyLoadImage
-                                        effect="opacity"
-                                        onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)}
-                                        alt={videoItem?.title}
-                                        src={videoItem?.thumbnailUrl} />
-                                    <span className="minit">{videoItem?.videoDuration}</span>
-                                </div>
-                                <div className="video-info">
-                                    <div className="text">
-                                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)} className="title line-clamp-2 cursor-pointer">{videoItem?.title}</span>
-                                        <div>
-                                            <span className="views text-[#aaa] text-sm">{`${videoItem?.videoViews} views`}</span>
-                                            <span className='text-[#aaa] text-sm'>{videoItem?.publishedTime}</span>
+            {popularVideos?.length > 0 &&
+                <div className='w-full'>
+                    <h3 className='text-[20px] font-medium'>Popular Videos</h3>
+                    <div className="flex mt-4 w-full justify-start items-center">
+                        <div className="videoslist w-full grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))]">
+                            {popularVideos.slice(0, 5).map((videoItem) => (
+                                <div key={videoItem?.videoId} className="channelVideo">
+                                    <div className="thumbnail cursor-pointer">
+                                        <LazyLoadImage
+                                            effect="opacity"
+                                            onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)}
+                                            alt={videoItem?.title}
+                                            src={videoItem?.thumbnailUrl} />
+                                        <span className="minit">{videoItem?.videoDuration}</span>
+                                    </div>
+                                    <div className="video-info">
+                                        <div className="text">
+                                            <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)} className="title line-clamp-2 cursor-pointer">{videoItem?.title}</span>
+                                            <div>
+                                                <span className="views text-[#aaa] text-sm">{`${videoItem?.videoViews} views`}</span>
+                                                <span className='text-[#aaa] text-sm'>{videoItem?.publishedTime}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <hr className='text-[#aaaaaa71] my-4' />
-            <div className='w-full mt-4'>
-                <h3 className='text-[20px] font-medium'>Latest Videos</h3>
-                <div className="flex mt-4 w-full justify-start items-center">
-                    <div className="videoslist w-full grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
-                        {videos.map((videoItem) => (
-                            <div key={videoItem?.videoId} className="channelVideo">
-                                <div className="thumbnail cursor-pointer">
-                                    <LazyLoadImage
-                                        effect="opacity"
-                                        onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)}
-                                        alt={videoItem?.title}
-                                        src={videoItem?.thumbnailUrl} />
-                                    <span className="minit">{videoItem?.videoDuration}</span>
-                                </div>
-                                <div className="video-info">
-                                    <div className="text">
-                                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)} className="title line-clamp-2 cursor-pointer">{videoItem?.title}</span>
-                                        <div>
-                                            <span className="views text-[#aaa] text-sm">{`${videoItem?.videoViews} views`}</span>
-                                            <span className='text-[#aaa] text-sm'>{videoItem?.publishedTime}</span>
+            {videos?.length > 0 &&
+                <div className='w-full mt-4'>
+                    <h3 className='text-[20px] font-medium'>Latest Videos</h3>
+                    <div className="flex mt-4 w-full justify-start items-center">
+                        <div className="videoslist w-full grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
+                            {videos?.slice(0, 5).map((videoItem) => (
+                                <div key={videoItem?.videoId} className="channelVideo">
+                                    <div className="thumbnail cursor-pointer">
+                                        <LazyLoadImage
+                                            effect="opacity"
+                                            onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)}
+                                            alt={videoItem?.title}
+                                            src={videoItem?.thumbnailUrl} />
+                                        <span className="minit">{videoItem?.videoDuration}</span>
+                                    </div>
+                                    <div className="video-info">
+                                        <div className="text">
+                                            <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoItem?.videoId}`)} className="title line-clamp-2 cursor-pointer">{videoItem?.title}</span>
+                                            <div>
+                                                <span className="views text-[#aaa] text-sm">{`${videoItem?.videoViews} views`}</span>
+                                                <span className='text-[#aaa] text-sm'>{videoItem?.publishedTime}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
             {featureChannels?.length ?
                 <>
                     <hr className='text-[#aaaaaa71] my-4' />

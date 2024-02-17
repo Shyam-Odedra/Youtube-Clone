@@ -3,7 +3,7 @@ export default class ApiService {
 
     async getHomeVideos(nextPageToken, categoryId) {
         let URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=40&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
-        if(categoryId !== 'all'){
+        if (categoryId !== 'all') {
             URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=IN&maxResults=50&videoCategoryId=${categoryId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
         }
         try {
@@ -58,7 +58,7 @@ export default class ApiService {
     async getVideoDetails(videoId) {
         const URL = `${BASE_URL}/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
         try {
-            const response = await fetch(URL); 
+            const response = await fetch(URL);
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch data: ${response.status}`);
@@ -74,7 +74,7 @@ export default class ApiService {
     async getVideoComments(videoId, nextPageToken) {
         const URL = `${BASE_URL}/commentThreads?part=snippet,replies&maxResults=50&videoId=${videoId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w&${nextPageToken ? `pageToken=${nextPageToken}` : ""}`;
         try {
-            const response = await fetch(URL); 
+            const response = await fetch(URL);
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch data: ${response.status}`);
@@ -88,9 +88,9 @@ export default class ApiService {
     }
 
     async getFeatureChannels(channelId) {
-        const URL = `${BASE_URL}/channelSections?part=snippet,contentDetails&channelId=${channelId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
         try {
-            const response = await fetch(URL); 
+            const URL = `${BASE_URL}/channelSections?part=snippet,contentDetails&channelId=${channelId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+            const response = await fetch(URL);
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch data: ${response.status}`);
@@ -102,5 +102,64 @@ export default class ApiService {
             throw error;
         }
     }
-    
+
+    async getChannelVideos(channelId, type) {
+        try {
+            let URL;
+            if (type === 'latest') {
+                URL = `${BASE_URL}/search?channelId=${channelId}&part=snippet&order=date&maxResults=50&type=video&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+            } else {
+                URL = `${BASE_URL}/search?channelId=${channelId}&part=snippet&order=viewCount&maxResults=50&type=video&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+            }
+            const response = await fetch(URL);
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('getChannelVideos - Error :', error.message);
+            throw error;
+        }
+    }
+
+    async getChannelInfoWithCommunityPosts(channelId) {
+        try {
+            const url = `https://yt-api.p.rapidapi.com/channel/community?id=${channelId}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '1aa90e2eebmsh07631597fb77c44p141bf3jsn4c37b48e698d',
+                    'X-RapidAPI-Host': 'yt-api.p.rapidapi.com'
+                }
+            };
+
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('getChannelInfoWithCommunityPosts - Error :', error.message);
+        }
+    }
+
+    async getChannelPlaylists(channelId) {
+        try {
+            const URL = `${BASE_URL}/playlists?part=snippet,contentDetails&maxResults=50&channelId=${channelId}&key=AIzaSyADij8KO-aGZprbwOkJAjDpqHToyKsqb3w`;
+            const response = await fetch(URL);
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('getChannelPlaylists - Error :', error.message);
+            throw error;
+        }
+    }
+
 }

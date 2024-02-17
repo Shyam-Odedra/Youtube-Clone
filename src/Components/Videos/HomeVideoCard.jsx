@@ -7,14 +7,14 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 export default function HomeVideoCard(props) {
     const navigate = useNavigate();
     const { videoId, publishedTime, videoTitle, videoThumbnail, videoDuration, videoViews, channelInfo } = props.video;
-    const { channelName, channelLogo } = channelInfo;
+    const { channelName, channelLogo, channelId } = channelInfo;
 
 
     return (
         <div key={videoId} className="video">
             <div className="thumbnail">
                 <LazyLoadImage
-                  effect="opacity"
+                    effect="opacity"
                     onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)}
                     alt={channelName}
                     src={videoThumbnail} />
@@ -22,16 +22,16 @@ export default function HomeVideoCard(props) {
                 <span className="minit">{videoDuration}</span>
             </div>
             <div className="video-info">
-                <div className="user">
+                <div className="user" onClick={() => navigate(`${ROUTES.CHANNEL}?id=${channelId}`)}>
                     <LazyLoadImage
-                         effect="opacity"
+                        effect="opacity"
                         alt={channelName}
                         src={channelLogo} />
                     {/* <img src={channelLogo} alt="" /> */}
                 </div>
                 <div className="text">
                     <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className="title line-clamp-2">{videoTitle}</span>
-                    <span className='text-[#aaa] hover:text-[#fff] text-sm'>{channelName}</span>
+                    <span className='text-[#aaa] hover:text-[#fff] text-sm' onClick={() => navigate(`${ROUTES.CHANNEL}?id=${channelId}`)}>{channelName}</span>
                     <div>
                         <span className="views text-[#aaa] text-sm">{`${videoViews} views`}</span>
                         <span className='text-[#aaa] text-sm'>{publishedTime}</span>

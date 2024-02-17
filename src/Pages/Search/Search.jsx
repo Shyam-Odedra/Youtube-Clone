@@ -27,12 +27,12 @@ export default function Search() {
             return <div className='searchResultChannel my-5'>
                 <div className="flex justify-start">
                     <div className="img w-[360px] mr-4 flex justify-center ">
-                        <div className="image-container cursor-pointer w-[246px] flex justify-center items-center overflow-hidden">
-                            <img className='h-[136px] rounded-full' src={item?.channelImage} alt={item?.channelTitle} />
+                        <div onClick={() => navigate(`${ROUTES.CHANNEL}?id=${item?.channelId}`)} className="image-container cursor-pointer w-[246px] flex justify-center items-center overflow-hidden">
+                            <img className='h-[136px] w-[136px] rounded-full' src={item?.channelImage} alt={item?.channelTitle} />
                         </div>
                     </div>
                     <div className="flex max-w-[720px] flex-col justify-start items-start text-start">
-                        <span className='text-base'>{item?.channelTitle}</span>
+                        <span className='text-base cursor-pointer' onClick={() => navigate(`${ROUTES.CHANNEL}?id=${item?.channelId}`)}>{item?.channelTitle}</span>
                         <div className='mt-1'>
                             <span className="views text-[#aaa] text-sm">{item?.username}</span>
                             <span className='text-[#aaa] text-sm'>{`${item?.channelSubscribers} subscribers`}</span>
@@ -58,12 +58,8 @@ export default function Search() {
                             <span className='text-[#aaa] text-sm'>{item?.publishedAt}</span>
                         </div>
                         <div className="user mt-2">
-                            <img src={item?.channelImage} alt={item?.channelTitle} />
-                            {/* <LazyLoadImage
-                                effect="opacity"
-                                alt={item?.channelTitle}
-                                src={item?.channelImage} /> */}
-                            <span className="text-sm ml-2 text-[#aaa]">{item?.channelTitle}</span>
+                            <img src={item?.channelImage} alt={item?.channelTitle} onClick={() => navigate(`${ROUTES.CHANNEL}?id=${item?.channelId}`)} />
+                            <span className="text-sm ml-2 cursor-pointer text-[#aaa]" onClick={() => navigate(`${ROUTES.CHANNEL}?id=${item?.channelId}`)}>{item?.channelTitle}</span>
                         </div>
                         <span className='text-sm mt-2 text-[#aaa]'>{item?.videoDescription}</span>
                     </div>
