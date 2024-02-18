@@ -1,0 +1,29 @@
+.playlistInfo {
+    position: relative;
+    display: block;
+    left: 240px;
+    width: calc(100% - 240px);
+    display: flex;
+    justify-content: start;
+    color: white;
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.video .minit{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 12px;
+    width: auto;
+    /* height: 20px; */
+    padding: 2px 4px !important;
+    border-radius: 3px;
+    color: white;
+    background-color: theme('colors.themeBlack');
+}
+
+.video .user .channelName::after{
+    margin-right: 5px;
+    content: "•";
+}

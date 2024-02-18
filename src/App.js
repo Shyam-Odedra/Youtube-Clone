@@ -7,6 +7,7 @@ import Search from './Pages/Search/Search';
 import Video from './Pages/Video/Video';
 import GlobalStateProvider from './Context/Global-State-Provider';
 import ChannelDetails from './Pages/Channel/ChannelDetails';
+import PlaylistInfo from './Pages/Playlist/PlaylistInfo';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                             <Route path={ROUTES.SEARCH} element={<Search />} />
                             <Route path={ROUTES.VIDEO} element={<Video />} />
                             <Route path={ROUTES.CHANNEL} element={<ChannelDetails />} />
+                            <Route path={ROUTES.PLAYLIST} element={<PlaylistInfo />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

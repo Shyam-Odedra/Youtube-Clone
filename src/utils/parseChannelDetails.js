@@ -1,6 +1,6 @@
 import moment from 'moment';
 import ApiService from '../Services/ApiService';
-import { convertDuration, convertViewCount, formatYouTubeSubscribers } from '.';
+import { checkForLongVideos, convertDuration, convertViewCount, formatYouTubeSubscribers } from '.';
 
 const ApiServices = new ApiService();
 export const parseChannelDetails = async (channelInfo) => {
@@ -47,7 +47,7 @@ export const parseChannelDetails = async (channelInfo) => {
                         title: communityPost?.attachment?.title,
                         description: communityPost?.attachment?.description,
                         channelTitle: communityPost?.attachment?.channelTitle,
-                        thumbnailUrl: communityPost?.attachment?.thumbnail.find((thubnail) => thubnail?.width === 360)?.url,
+                        thumbnailUrl: communityPost?.attachment?.thumbnail.find((thubnail) => thubnail?.width === 360 || thubnail?.width === 480)?.url,
                         channelId: communityPost?.attachment?.channelId,
                         videoViews: convertViewCount(communityPost?.attachment?.viewCount),
                         videoDuration: communityPost?.attachment?.lengthText,
@@ -123,38 +123,19 @@ const parseVideosInfo = async (channelId, type) => {
                 videoData = searchVideosData.find((videoItem) => videoItem?.id === item?.id?.videoId);
             }
 
-            videosInfo.push({
-                videoId: item?.id?.videoId,
-                title: item?.snippet?.title,
-                thumbnailUrl: videoData?.snippet?.thumbnails?.maxres?.url || videoData?.snippet?.thumbnails?.medium?.url,
-                videoViews: convertViewCount(videoData?.statistics?.viewCount),
-                publishedTime: moment(item?.snippet?.publishedAt).fromNow(),
-                videoDuration: convertDuration(videoData?.contentDetails?.duration),
-            })
-            console.log(convertDuration(videoData?.contentDetails?.duration))
-        });
-
-        const filterVideos = videosInfo.filter(item => {
-            const durationComponents = item?.videoDuration.split(":");
-            if (durationComponents.length === 2) {
-                // Less than 1 hour
-                const minutes = parseInt(durationComponents[0]);
-                const seconds = parseInt(durationComponents[1]);
-                const totalSeconds = minutes * 60 + seconds;
-                return totalSeconds > 60;
-            } else if (durationComponents.length === 3) {
-                // More than 1 hour
-                const minutes = parseInt(durationComponents[1]);
-                const seconds = parseInt(durationComponents[2]);
-                const totalSeconds = minutes * 60 + seconds;
-                return totalSeconds > 60;
-            } else {
-                // Invalid duration format
-                return false;
+            if(checkForLongVideos(videoData?.contentDetails?.duration)){
+                console.log(convertDuration(videoData?.contentDetails?.duration))
+                videosInfo.push({    
+                    videoId: item?.id?.videoId,
+                    title: item?.snippet?.title,
+                    thumbnailUrl: videoData?.snippet?.thumbnails?.maxres?.url || videoData?.snippet?.thumbnails?.medium?.url,
+                    videoViews: convertViewCount(videoData?.statistics?.viewCount),
+                    publishedTime: moment(item?.snippet?.publishedAt).fromNow(),
+                    videoDuration: convertDuration(videoData?.contentDetails?.duration),
+                })
             }
         });
-
-        return filterVideos;
+        return videosInfo;
     } catch (error) {
 
     }
