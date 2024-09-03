@@ -25,7 +25,7 @@ export default function Community({ communityPosts }) {
                                         <span className='text-[#fff] text-[12px] mr-2'>{post?.channelName} </span>
                                         <span className='text-[12px] text-[#aaa]'>{post?.publishedTime}</span>
                                     </div>
-                                    <div className='text-[15px] my-1 line-clamp-4' dangerouslySetInnerHTML={{ __html: (post?.content)?.replace(/\n/g, '<br />') }} />
+                                    <div onClick={() => navigate(`${ROUTES.POST}?id=${post?.postId}`)} className='text-[15px] my-1 line-clamp-4' dangerouslySetInnerHTML={{ __html: (post?.content)?.replace(/\n/g, '<br />') }} />
                                     {post?.attachments ?
                                         <div className='w-full'>
                                             {post?.attachments?.type === "video" ?

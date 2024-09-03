@@ -21,6 +21,7 @@ export const parsePlaylistItems = async (playlistItems) => {
                 playlistVideos.push({
                     videoId: videoData?.id,
                     publishedAt: moment(videoData?.snippet?.publishedAt).fromNow(),
+                    publishedTime: videoData?.snippet?.publishedAt,
                     videoTitle: videoData?.snippet?.title,
                     videoThumbnail: videoData?.snippet?.thumbnails?.maxres?.url || videoData?.snippet?.thumbnails?.medium?.url,
                     videoDuration: convertDuration(videoData?.contentDetails?.duration),

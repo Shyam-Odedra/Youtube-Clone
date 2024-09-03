@@ -3,7 +3,8 @@ export const ROUTES = {
     SEARCH: "/search",
     VIDEO: "/video",
     CHANNEL: "/channel",
-    PLAYLIST: "/playlist"
+    PLAYLIST: "/playlist",
+    POST: "/post"
 }
 
 export const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';

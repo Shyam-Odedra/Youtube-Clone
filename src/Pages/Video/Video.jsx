@@ -1883,15 +1883,15 @@ export default function Video() {
         if (item?.videoId) {
             return <div className='mb-3'>
                 <div className="flex justify-start">
-                    <div onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className="img w-[170px] flex-1 max-w-[170px] mr-2 flex justify-center ">
+                    <div onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className="img w-[170px] flex-1 cursor-pointer max-w-[170px] mr-2 flex justify-center ">
                         <div className="image-container w-full flex justify-center items-center overflow-hidden">
                             <img className='rounded-xl w-full' src={item?.thumbnailUrl} alt="" />
                         </div>
                     </div>
                     <div className="flex max-w-[210px] flex-col items-start text-start align-middle">
-                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className='text-sm line-clamp-2'>{item?.title}</span>
+                        <span onClick={() => navigate(`${ROUTES.VIDEO}?id=${videoId}`)} className='text-sm cursor-pointer line-clamp-2'>{item?.title}</span>
                         <div className="user">
-                            <span className="text-[12px] text-[#aaa]">{item?.channelTitle}</span>
+                            <span className="text-[12px] text-[#aaa]" onClick={() => navigate(`${ROUTES.CHANNEL}?id=${item?.channelId}`)}>{item?.channelTitle}</span>
                         </div>
                         <div className="user">
                             <span className="views text-[#aaa] text-[12px]">{`${convertViewCount(item?.statistics?.viewCount)} view`}</span>
@@ -1924,11 +1924,11 @@ export default function Video() {
                                 </div>
                                 <div className="channelInfo flex justify-between items-center mt-3">
                                     <div className="flex justify-start items-center">
-                                        <div className="channelLogo">
+                                        <div className="channelLogo" onClick={() => navigate(`${ROUTES.CHANNEL}?id=${channelDetails?.id}`)}>
                                             <img src={channelDetails?.snippet?.thumbnails?.medium?.url} alt="" />
                                         </div>
                                         <div className="flex flex-col ml-3">
-                                            <span className='text-[#fff] text-base'>{channelDetails?.snippet?.title}</span>
+                                            <span className='text-[#fff] text-base cursor-pointer' onClick={() => navigate(`${ROUTES.CHANNEL}?id=${channelDetails?.id}`)}>{channelDetails?.snippet?.title}</span>
                                             <span className='text-[#aaa] text-sm'>{`${formatYouTubeSubscribers(channelDetails?.statistics?.subscriberCount)} subscribers`}</span>
                                         </div>
                                         <div className='ml-8'>

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../Constants/constants';
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import ApiService from '../../../Services/ApiService';
+import LoadingBar from 'react-top-loading-bar';
 
 export default function Playlists({ channelId }) {
+    const ref = useRef(null);
     const ApiServices = new ApiService();
     const [playlists, setPlaylists] = useState([]);
 
@@ -127,6 +129,7 @@ export default function Playlists({ channelId }) {
 
     return (
         <div className='w-full'>
+            <LoadingBar color='#f11946' ref={ref} />
             {playlists.length > 0 &&
                 <div className='w-full'>
                     <h3 className='text-[20px] font-medium'>Created playlist</h3>
@@ -137,7 +140,7 @@ export default function Playlists({ channelId }) {
                                     <div className="thumbnail cursor-pointer">
                                         <LazyLoadImage
                                             effect="opacity"
-                                            onClick={() => navigate(`${ROUTES.VIDEO}?id=${playlist?.playlistId}`)}
+                                            onClick={() => navigate(`${ROUTES.PLAYLIST}?id=${playlist?.playlistId}&channelId=${channelId}`)}
                                             alt={playlist?.title}
                                             src={playlist?.thumbnailUrl} />
                                         <span className="playlistCount flex items-center"><PlaylistPlayIcon /><span>{`${playlist?.videosCount} videos`}</span></span>
@@ -145,7 +148,7 @@ export default function Playlists({ channelId }) {
                                     <div className="mt-0 text-[15px]">
                                         <div className="text">
                                             <span className="title line-clamp-2 font-semibold">{playlist?.title}</span>
-                                            <span onClick={() => navigate(`${ROUTES.PLAYLIST}?id=${playlist?.playlistId}`)} className='text-[#aaa] cursor-pointer text-sm'>view full playlist</span>
+                                            <span onClick={() => navigate(`${ROUTES.PLAYLIST}?id=${playlist?.playlistId}&channelId=${channelId}`)} className='text-[#aaa] cursor-pointer text-sm'>view full playlist</span>
                                             {/* <div>
                                             <span className="views text-[#aaa] text-sm">{`${videoItem?.videoViews} views`}</span>
                                             <span className='text-[#aaa] text-sm'>{videoItem?.publishedTime}</span>

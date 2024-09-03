@@ -39,7 +39,7 @@ img {
     border-bottom: 0.5px solid rgba(241, 241, 241,0.3);
 }
 
-button {
+.tabButton {
     margin-right: 5px;
     font-size: 17px;
     background: transparent;
@@ -51,7 +51,7 @@ button {
     border-bottom: 2px solid transparent;
 }
 
-button:hover{
+.tabButton:hover{
     border-bottom: 2px solid rgba(255, 255, 255, 0.577);
 }
 

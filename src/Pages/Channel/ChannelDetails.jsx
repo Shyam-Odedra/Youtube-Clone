@@ -314,9 +314,9 @@ export default function ChannelDetails() {
                                     <span className='text-sm mt-1 mb-2 line-clamp-1 w-2/3 text-[#aaa]'>{channelDetails?.description}</span>
                                     <div className="button">
                                         {isSubscribe ?
-                                            <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[#fff] text-[15px] text-[#111] inline-block rounded-full py-1 px-3'>Subscribe</button>
+                                            <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[#fff] text-[15px] text-[#111] inline-block rounded-full py-2 px-3'>Subscribe</button>
                                             :
-                                            <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[rgba(255,255,255,0.1)] text-[15px] text-[white] hover:bg-[#3f3f3f] flex justify-center items-center rounded-full py-1 px-3'><NotificationsActiveIcon fontSize='small' color='white' className='mr-3' /> Subscribed</button>
+                                            <button onClick={() => setIsSubscribe(!isSubscribe)} className='bg-[rgba(255,255,255,0.1)] text-[15px] text-[white] hover:bg-[#3f3f3f] flex justify-center items-center rounded-full py-2 px-3'><NotificationsActiveIcon fontSize='small' color='white' className='mr-3' /> Subscribed</button>
                                         }
                                     </div>
                                 </div>
