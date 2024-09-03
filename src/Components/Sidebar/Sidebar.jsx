@@ -7,6 +7,8 @@ import { categoryMenuList, loginMenuList, sidebarMenuList } from '../../Constant
 import { useLocation, useNavigate } from 'react-router-dom';
 import Context from '../../Context/Context';
 import { ROUTES } from '../../Constants/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCategory, clearSearchVideos } from '../../Store/features/youtubeSlice';
 // import Context from '../../GlobalState/Context';
 
 export default function Sidebar() {
@@ -15,6 +17,8 @@ export default function Sidebar() {
     const [activeSidebarMenu, setactiveSidebarMenu] = useState('');
     const [isLogin, setIsLogin] = useState(false);
     const { globalState, globalDispatch } = useContext(Context);
+    const homeCategoryId = useSelector(state => state.youtube.homeCategoryId);
+    const dispatch = useDispatch();
 
     // const {globalState, globalDispatch} = useContext(Context)
 
@@ -30,7 +34,22 @@ export default function Sidebar() {
     const handleMenuClick = (menuItem) => {
         globalDispatch({
             sidebarActiveTab: menuItem?.title
-        })
+        });
+        setactiveSidebarMenu(menuItem?.title);
+        dispatch(changeCategory('all'))
+        dispatch(clearSearchVideos());
+        navigate(menuItem?.route);
+    }
+
+    const handleExploreMenuClick = (menuItem) => {
+        globalDispatch({
+            sidebarActiveTab: menuItem?.title,
+            homePageCategoryId: menuItem?.apicategory,
+            homePageVideosToken: "",
+            homePageVideos: []
+        });
+        dispatch(changeCategory(menuItem?.apicategory))
+        dispatch(clearSearchVideos());
         setactiveSidebarMenu(menuItem?.title);
         navigate(menuItem?.route);
     }
@@ -46,6 +65,8 @@ export default function Sidebar() {
             setactiveSidebarMenu('Home');
         }
     }, []);
+
+   
 
     return (
         <div className="sidebar">
@@ -84,7 +105,7 @@ export default function Sidebar() {
                 <div className="menu_1">
                     {categoryMenuList ? <>
                         {categoryMenuList.map((menuItem, key) =>
-                            <div className={'listItem ' + (activeSidebarMenu === menuItem.title ? 'activeMenu' : null)} key={key} onClick={() => setactiveSidebarMenu(menuItem.title)}>
+                            <div className={'listItem ' + (activeSidebarMenu === menuItem.title ? 'activeMenu' : null)} key={key} onClick={() => handleExploreMenuClick(menuItem)}>
                                 <span className='icon'></span>{activeSidebarMenu === menuItem.title ? menuItem.activeIcon : menuItem.icon}
                                 <span className='title'>{menuItem.title}</span>
                             </div>

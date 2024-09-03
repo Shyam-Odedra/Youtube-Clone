@@ -76,30 +76,38 @@ export const categoryMenuList = [
     icon: <LibraryMusicIcon />,
     activeIcon: <LibraryMusicIcon />,
     title: 'Music',
+    apicategory: 10
   },
   {  
     icon: <SportsCricketIcon />,
     activeIcon: <SportsCricketIcon />,
     title: 'Sports',
+    apicategory: 17
   },
   {  
     icon: <SportsEsportsIcon />,
     activeIcon: <SportsEsportsIcon />,
     title: 'Gaming',
+    apicategory: 20
+
   },
   {  
     icon: <MovieIcon />,
     activeIcon: <MovieIcon />,
-    title: 'Movies',
+    title: 'Technology',
+    apicategory: 28
   },
   {  
     icon: <NewspaperIcon />,
     activeIcon: <NewspaperIcon />,
     title: 'News',
+    apicategory: 25
+
   },
-  {  
-    icon: <LightbulbIcon />,
-    activeIcon: <LightbulbIcon />,
-    title: 'Learning',
-  },
+  // {  
+  //   icon: <LightbulbIcon />,
+  //   activeIcon: <LightbulbIcon />,
+  //   title: 'Learning',
+  //   apicategory: 26
+  // },
 ];

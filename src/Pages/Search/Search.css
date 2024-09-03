@@ -16,10 +16,6 @@
     max-width: 360px;
 }
 
-.searchResultVideo:first-child{
-    border-top: 2px solid red ;
-}
-
 .views::after{
     content: "•";
     margin: 0 5px;
@@ -44,4 +40,17 @@
     margin-left: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.searchResultVideo .minit{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    font-size: 12px;
+    width: auto;
+    /* height: 20px; */
+    padding: 2px 4px !important;
+    border-radius: 3px;
+    color: white;
+    background-color: theme('colors.themeBlack');
 }

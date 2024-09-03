@@ -15,7 +15,8 @@ const initialState = {
   homePageVideosToken: "",
   searchQuery: "",
   sidebarActiveTab: "",
-  searchVideosToken: ""
+  searchVideosToken: "",
+  homePageCategoryId: ""
 };
 
 const useGlobalState = () => {

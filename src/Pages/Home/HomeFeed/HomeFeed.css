@@ -12,8 +12,17 @@
     /* flex-wrap: wrap; */
     margin:  0 20px;
     display: grid;
-    grid-column: 2;
+    /* grid-column: 2; */
     column-gap: 20px;
     row-gap: 25px;
-    grid-template-columns: repeat(5, 1fr);
+    /* grid-template-columns: repeat(5, 1fr); */
+}
+
+.infinite-scroll-component__outerdiv{
+    width: 100%;
+    height: 100%;
+}
+
+.infinite-scroll-component {
+    overflow:  inherit !important;
 }
