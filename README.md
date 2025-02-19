@@ -1,73 +1,118 @@
-# Youtube-Clone
-Youtube Clone site in React JS
+# YouTube Clone
 
-# Getting Started with Create React App
+A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. This application provides a seamless video streaming experience with core YouTube functionalities including video playback, search, channel pages, and user authentication.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## [Live Demo](https://react-netflix-clone-2396d.web.app/)
 
-## Available Scripts
+## 🖼️ Screenshots
 
-In the project directory, you can run:
+### Home Page
+![Home Page](https://imgur.com/a/nlhJzwl)
 
-### `npm start`
+### Video Player
+![Video Player](./screenshots/Video_Page_1.png)
+![Video Player](./screenshots/Video_Page_2.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Channel Page
+![Channel Page](./screenshots/channel.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Search Results
+![Search Results](./screenshots/search.png)
 
-### `npm test`
+## ✨ Key Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🎥 Video Experience
+- **Video Playback**: Full-featured video player with custom controls
+- **Related Videos**: Smart video recommendations
+- **Video Info**: Detailed video descriptions, tags, and metadata
+- **Engagement**: Like/dislike functionality, view counts
+- **Comments**: Threaded comments with replies support
 
-### `npm run build`
+### 🔍 Search & Discovery
+- **Smart Search**: Real-time search suggestions
+- **Advanced Filters**: Filter by upload date, type, and duration
+- **Categories**: Browse videos by categories
+- **Trending Section**: Stay updated with trending content
+- **Home Feed**: Personalized video recommendations
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📺 Channel Features
+- **Channel Pages**: Comprehensive channel profiles
+- **About Section**: Channel description and statistics
+- **Playlists**: Create and manage video playlists
+- **Community**: View and engage with community posts
+- **Analytics**: View channel statistics and metrics
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 👤 User Features
+- **Google Authentication**: Secure login with Google OAuth
+- **Subscriptions**: Subscribe to favorite channels
+- **History**: Track watch history
+- **Responsive Design**: Optimized for all devices
+- **Dark Mode**: Eye-friendly dark theme
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠️ Tech Stack
 
-### `npm run eject`
+### Frontend
+- **React 18**: UI development
+- **Redux Toolkit**: State management
+- **React Router v6**: Navigation
+- **Tailwind CSS**: Styling
+- **Material UI**: UI components
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Backend & APIs
+- **YouTube Data API v3**: Video and channel data
+- **Google OAuth 2.0**: Authentication
+- **React OAuth/Google**: Google integration
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Development Tools
+- **Create React App**: Project bootstrapping
+- **Git**: Version control
+- **npm**: Package management
+- **ESLint**: Code linting
+- **Prettier**: Code formatting
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Clone the repository**
 
-## Learn More
+```bash
+git clone https://github.com/yourusername/youtube-clone.git
+cd youtube-clone
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Install dependencies**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+3. **Set up environment variables**
+Create a `.env` file in the root directory:
+```env
+REACT_APP_YOUTUBE_API_KEY=your_youtube_api_key
+REACT_APP_GOOGLE_CLIENT_ID=your_google_client_id
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. **Start the development server**
+```bash
+npm start
+```
 
-### Analyzing the Bundle Size
+Visit `http://localhost:3000` to view the application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📝 Environment Variables
 
-### Making a Progressive Web App
+Required environment variables:
+- `REACT_APP_YOUTUBE_API_KEY`: YouTube Data API key
+- `REACT_APP_GOOGLE_CLIENT_ID`: Google OAuth client ID
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📄 License
 
-### Advanced Configuration
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 👏 Acknowledgments
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [YouTube Data API Documentation](https://developers.google.com/youtube/v3)
+- [Material-UI](https://mui.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Documentation](https://reactjs.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
