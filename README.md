@@ -7,17 +7,39 @@ A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. 
 ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](https://imgur.com/a/nlhJzwl)
+![Home Page](./screenshots/Home_Page_1.png)
 
-### Video Player
+### Video Player Page
+#### Video Player
 ![Video Player](./screenshots/Video_Page_1.png)
-![Video Player](./screenshots/Video_Page_2.png)
+
+#### Video Comments
+![Video Comments](./screenshots/Video_Page_2.png)
 
 ### Channel Page
-![Channel Page](./screenshots/channel.png)
+#### Channel Details 
+![Channel Page](./screenshots/Channel_Details_Page_1.png)
+
+#### Channel Details Features Channels
+![Channel Page](./screenshots/Channel_Details_Page_2.png)
+
+#### Channel Details Videos
+![Channel Page](./screenshots/Channel_Details_Page_3.png)
+
+#### Channel Details Playlists
+![Channel Page](./screenshots/Channel_Details_Page_4.png)
+
+#### Channel Details Community
+![Channel Page](./screenshots/Channel_Details_Page_5.png)
+
+#### Channel Details About
+![Channel Page](./screenshots/Channel_Details_Page_6.png)
+
+### Playlist Page
+![Playlist Page](./screenshots/Playlist_Details_Page.png)
 
 ### Search Results
-![Search Results](./screenshots/search.png)
+![Search Results](./screenshots/Search_Page.png)
 
 ## ✨ Key Features
 
