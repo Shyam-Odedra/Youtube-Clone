@@ -7,7 +7,9 @@ A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. 
 ## 🖼️ Screenshots
 
 ### Home Page
-![Home Page](./screenshots/Home_Page_1.png)
+<p align="center">
+  <img src="./screenshots/Home_Page_1.png" width="600" style="background: white; padding: 10px; border-radius: 10px;">
+</p>
 
 ### Video Player Page
 #### Video Player
@@ -97,8 +99,8 @@ A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. 
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/youtube-clone.git
-cd youtube-clone
+git clone https://github.com/Shyam-Odedra/Youtube-Clone.git
+cd Youtube-Clone
 ```
 
 2. **Install dependencies**
