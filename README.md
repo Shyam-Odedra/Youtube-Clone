@@ -8,7 +8,7 @@ A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. 
 
 ### Home Page
 <p align="center">
-  <img src="./screenshots/Home_Page_1.png" width="600" style="background: white; padding: 10px; border-radius: 10px;">
+  <img src="./screenshots/Home_Page_1.png" style="border: 1px solid white; border-radius: 10px;">
 </p>
 
 ### Video Player Page
