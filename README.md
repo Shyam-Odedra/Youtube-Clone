@@ -2,7 +2,7 @@
 
 A feature-rich YouTube clone built with React, Redux, and the YouTube Data API. This application provides a seamless video streaming experience with core YouTube functionalities including video playback, search, channel pages, and user authentication.
 
-## [Live Demo](https://react-netflix-clone-2396d.web.app/)
+## [Live Demo](https://react--clone-31467.web.app/)
 
 ## 🖼️ Screenshots
 
