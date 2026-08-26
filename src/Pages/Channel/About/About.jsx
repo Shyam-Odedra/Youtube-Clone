@@ -17,7 +17,7 @@ export default function About({ channelInfo }) {
                                 <div className='text-[15px] w-full'
                                     dangerouslySetInnerHTML={{ __html: (channelInfo?.description)?.replace(/\n/g, '<br />') }} />
                             </div>}
-                            <span className='font-semibold text-lg my-2'>Channel details</span>
+                            <span className='font-semibold text-lg my-2'>Channel details mr-2</span>
                             <p className='text-[15px] mb-3'><LanguageIcon className='mr-3 ' /> {`http://www.youtube.com/${channelInfo?.username}`}</p>
                             <p className='text-[15px] mb-3'><RecordVoiceOverIcon className='mr-3' /> {`${channelInfo?.subscribers} subscribers`}</p>
                             <p className='text-[15px] mb-3'><SlideshowIcon className='mr-3' /> {`${channelInfo?.videoCount} videos`}</p>
